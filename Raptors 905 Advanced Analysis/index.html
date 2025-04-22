@@ -56,6 +56,14 @@
         text-align: center;
     }
 
+    .middle-column {
+      /* keep its grid/flex placement */
+      /* then nudge it over: */
+      width: 100%;
+      margin-left: 130px;
+    }
+
+
     /* new wrapper that stacks radar + chart-container vertically */
     .chart-column{
       display: flex;
@@ -63,6 +71,13 @@
       align-items: center;   /* center each child horizontally */
       gap: 20px;             /* space between radar and main chart */
       flex: 0 0 auto;        /* keep natural size inside .player-layout */
+
+      /* ← this is the magic line: */
+      margin-left: auto;
+
+      /* add these: */
+      position: relative;
+      left: 150px;   /* push it 20px further right */
     }
 
     /* size the radar plot to match the other charts */
@@ -201,6 +216,7 @@
     /* Left Column (Bio) */
     #player-bio {
       flex: 0 0 300px; /* fixed column width (adjust as desired) */
+      margin-left: -150px;
     }
 
     /* Right Column (Stats, Charts, Additional Info) */
