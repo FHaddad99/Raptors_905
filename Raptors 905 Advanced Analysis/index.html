@@ -362,19 +362,19 @@
 
       <div class="middle-column">
         <div class="section" id="notes-1">
-          <h2>Section 1</h2>
-          <ul><li>…</li><li>…</li></ul>
+          <h2>Overview</h2>
+          <ul><li>Ranked highly in volume stats while playing at a high pace (PTS, USG%, FGA, 3PA, FTA)</li><li>Above average 3-point shooter (72nd percentile)</li><li>Poor Free Throw shooter (14th percentile) which has a negative impact on EFG% (44th percentile) and TS% (52nd percentile)</ul>
         </div>
         <div class="section" id="notes-2">
-          <h2>Section 2</h2>
-          <ul><li>…</li><li>…</li></ul>
+          <h2>Offence</h2>
+          <ul><li>Almost exclusively shoots from 3-point range or near the rim</li><li>Shoots better than league average in every 3-point zone except Left Above The Break (Right Above The Break is most efficient 3-point zone +12.3 LA)</li><li>Lacks playmaking and midrange efficiency</li></ul>
         </div>
         <div class="section" id="notes-3">
-          <h2>Section 3</h2>
+          <h2>Defense</h2>
           <ul><li>…</li><li>…</li></ul>
         </div>
         <div class="section" id="notes-4">
-          <h2>Section 4</h2>
+          <h2>Forward Outlook</h2>
           <ul><li>…</li><li>…</li></ul>
         </div>
       </div>
@@ -525,10 +525,15 @@
       3. Double Click on the Modal Image => Swap
          - Keep the modal open, displaying the new main chart
     ***********************************************************/
+    // New, single dbl‑click handler for modalImg:
     modalImg.addEventListener("dblclick", () => {
-      swapCharts();
-      // Update the modal to show the newly swapped main chart
-      modalImg.src = currentMainPath;
+      const showingDensityOrEfficiency =
+          modalImg.src.endsWith(densityMapPath) ||
+          modalImg.src.endsWith(efficiencyChartPath);
+      if (showingDensityOrEfficiency) {
+        swapCharts();
+        modalImg.src = currentMainPath;
+      }
     });
 
     /***********************************************************
@@ -568,18 +573,6 @@ const radarImage    = document.getElementById("radarImage");
 radarImage.addEventListener("click", () => {
   modal.style.display = "block";
   modalImg.src = radarPlotPath;
-});
-
-/*****************************************************************
-  EXISTING dbl‑click on modal image  ►  swap only if the modal
-  is currently showing the mainChart (density / efficiency).
-*****************************************************************/
-modalImg.addEventListener("dblclick", () => {
-  // Only run swap if modal is showing the current main chart
-  if (modalImg.src.includes(currentMainPath)) {
-    swapCharts();
-    modalImg.src = currentMainPath;   // keep the zoom on the new main
-  }
 });
 
 /*  add path  */
