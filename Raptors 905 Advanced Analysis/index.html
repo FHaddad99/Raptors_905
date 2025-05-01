@@ -80,6 +80,15 @@
       left: 150px;   /* push it 20px further right */
     }
 
+    .bio-chart {
+      display: block;                   /* take full width of the bio card */
+      width: 100%;                      /* cap at the 300px bio-column width */
+      height: auto;
+      margin-top: var(--base-spacing);  /* breathing room above */
+      border-radius: var(--border-radius);
+      cursor: pointer;
+    }
+
     /* size the radar plot to match the other charts */
     .radar-image{
       max-width: 400px;      /* same width as .main-chart */
@@ -261,6 +270,12 @@
       line-height: 1.4;
     }
 
+    /* add breathing-room between bullet points */
+    .section ul li {
+      margin-bottom: 0.75em;
+    }
+
+
     /* Stats boxes styling */
     .stats-grid {
       display: flex;
@@ -358,14 +373,18 @@
           He is currently on a two year non-guaranteed contract with the Raptors 905 and played three seasons with the South Carolina Gamecocks. 
           He is a score first shooting guard who averaged 14.2 PPG on 34.9% 3P% in college. 
         </p>
+
+        <img
+        src="aj_lawson_g_league_stats.png"
+        alt="A.J. Lawson G-League Stats"
+        id="gLeagueStatsChart"
+        class="bio-chart"
+      />
+        
       </div> 
 
       <div class="middle-column">
         <div class="section" id="notes-1">
-          <h2>Overview</h2>
-          <ul><li>Ranked highly in volume stats while playing at a high pace (PTS, USG%, FGA, 3PA, FTA)</li><li>Above average 3-point shooter (72nd percentile)</li><li>Poor Free Throw shooter (14th percentile) which has a negative impact on EFG% (44th percentile) and TS% (52nd percentile)</ul>
-        </div>
-        <div class="section" id="notes-2">
           <h2>Offence</h2>
           <ul><li>Almost exclusively shoots from 3-point range or near the rim</li><li>Shoots better than league average in every 3-point zone except Left Above The Break (Right Above The Break is most efficient 3-point zone +12.3 LA)</li><li>Lacks playmaking and midrange efficiency</li></ul>
         </div>
@@ -377,30 +396,58 @@
           <h2>Forward Outlook</h2>
           <ul><li>…</li><li>…</li></ul>
         </div>
+        <div class="section" id="notes-4">
+          <h2>Overview</h2>
+          <p>Lawson has shown to be most effective as a high usage scorer. 
+          In the G League this year, he emerged as a reliable three-point threat who can get to the free-throw line consistently while also playing at a fast pace (84th percentile among guards). 
+          The 6'6" guard rebounds the ball well for his size and performs well in the DEF WS category. These two attributes have translated over to the Raptors this season (80th percentile in REB% and 97th percentile in DEF WS) in a small sample size. 
+          As a player capable of being a scoring option, improving shooting efficiency from the field and the free throw line (30th percentile in EFG%, 7th percentile in FT%) as well as playmaking (8th percentile in AST RATIO) will be important for Lawson as he faces NBA calibre defense.</p>
+        </div>
       </div>
+
 
       <!-- Right column: Just the two chart images, side by side -->
 
       <!-- ▸ Right column : charts          -->
-  <div class="chart-column">
+<div class="chart-column">      
+  <div class="chart-container">
   <!-- radar plot on top -->
-   <img src="aj_lawson_radar_plot.png"
-        alt="A.J. Lawson Radar Plot"
-        id="radarImage" 
-        class="radar-image"
+    <img src="aj_lawson_radar_plot_nba.png"
+        alt="A.J. Lawson NBA Radar Plot"
+        id="radarMainChart" 
+        class="main-chart"
     />
+    
+    <img src="aj_lawson_g_league_radar_plot.png"
+         alt="A.J. Lawson G-League Radar Teaser"
+         id="radarThumbChart"
+         class="overlay-thumbnail" />
+
+  </div>
 
   <div class="chart-container">
-    <img src="aj_lawson_shot_density_map.png"
+    <img src="aj_lawson_nba_shot_density_chart.png"
          alt="Shot Density Map"
          id="mainChart"
          class="main-chart" />
 
-    <img src="aj_lawson_efficiency_chart.png"
-         alt="Efficiency Chart Teaser"
+    <img src="aj_lawson_g_league_shot_density_chart.png"
+         alt="Density Map Teaser"
          id="thumbChart"
          class="overlay-thumbnail" />
   </div><!-- /.chart-container -->
+
+  <!-- NEW: NBA/G-League Efficiency Pair -->
+  <div class="chart-container">
+    <img src="aj_lawson_nba_efficiency_chart.png"
+         alt=""
+         id="efficiencyMainChart"
+         class="main-chart" />
+    <img src="aj_lawson_g_league_efficiency_chart.png"
+         alt=""
+         id="efficiencyThumbChart"
+         class="overlay-thumbnail" />
+  </div>
 
   <!-- ▼ NEW: Player Impact Estimate chart ------------------- -->
   <img src="player_impact_estimate.png"
@@ -467,127 +514,155 @@
   </div> <!-- .container -->
 
   <script>
-    /***********************************************************
-      1. Track which chart is Main vs. Thumbnail
-    ***********************************************************/
-    let densityMapPath = "aj_lawson_shot_density_map.png";
-    let efficiencyChartPath = "aj_lawson_efficiency_chart.png";
 
-    // Initially, density is main; efficiency is thumbnail
-    let currentMainPath = densityMapPath;
+    // 1) Paths & state
+    const densityMapPath      = "aj_lawson_nba_shot_density_chart.png";
+    const efficiencyChartPath = "aj_lawson_g_league_shot_density_chart.png";
+    let currentMainPath  = densityMapPath;
     let currentThumbPath = efficiencyChartPath;
 
-    // DOM elements
-    const mainChart = document.getElementById("mainChart");
-    const thumbChart = document.getElementById("thumbChart");
-    const modal = document.getElementById("chartModal");
-    const modalImg = document.getElementById("modalImg");
+    const radarMapPath     = "aj_lawson_radar_plot_nba.png";
+    const gLeagueRadarPath = "aj_lawson_g_league_radar_plot.png";
+    let radarCurrentMain   = radarMapPath;
+    let radarCurrentThumb  = gLeagueRadarPath;
+
+    const nbaEffChartPath        = "aj_lawson_nba_efficiency_chart.png";
+    const gLeagueEffChartPath    = "aj_lawson_g_league_efficiency_chart.png";
+    let effCurrentMain    = nbaEffChartPath;
+    let effCurrentThumb   = gLeagueEffChartPath;
+
+    const impactPath = "player_impact_estimate.png";
+
+    const gLeagueStatsPath  = "aj_lawson_g_league_stats.png";
+
+    // 2) Grab DOM
+    const mainChart      = document.getElementById("mainChart");
+    const thumbChart     = document.getElementById("thumbChart");
+    const radarMainChart = document.getElementById("radarMainChart");
+    const radarThumbChart= document.getElementById("radarThumbChart");
+    const efficiencyMainChart  = document.getElementById("efficiencyMainChart");
+    const efficiencyThumbChart = document.getElementById("efficiencyThumbChart");
+    const impactChart    = document.getElementById("impactChart");
+    const gLeagueStatsChart = document.getElementById("gLeagueStatsChart");
+
+    const modal       = document.getElementById("chartModal");
+    const modalImg    = document.getElementById("modalImg");
     const closeModalBtn = document.getElementById("closeModalBtn");
 
-    // Update the page images on load
-    mainChart.src = currentMainPath;
-    thumbChart.src = currentThumbPath;
+    // 3) Initialize srcs
+    mainChart.src       = currentMainPath;
+    thumbChart.src      = currentThumbPath;
+    radarMainChart.src  = radarCurrentMain;
+    radarThumbChart.src = radarCurrentThumb;
+    efficiencyMainChart.src  = effCurrentMain;
+    efficiencyThumbChart.src = effCurrentThumb;
 
-    /***********************************************************
-      2. Single vs. Double Click on the Main Chart
-         - Single click => open modal
-         - Double click => swap charts
-    ***********************************************************/
-    let clickTimer = null;
-    const clickDelay = 300; // ms to differentiate single vs double click
+    // 4) Shared delay
+    const clickDelay = 300;
+    let clickTimer        = null;
+    let radarClickTimer   = null;
+    let effClickTimer     = null;
 
+    // 5) Main Chart single/double-click
     mainChart.addEventListener("click", () => {
-      // If there's already a click in progress, it's a double click
       if (clickTimer) {
         clearTimeout(clickTimer);
         clickTimer = null;
-        handleDoubleClickOnMain();
+        // double-click → swap
+        [currentMainPath, currentThumbPath] = [currentThumbPath, currentMainPath];
+        mainChart.src  = currentMainPath;
+        thumbChart.src = currentThumbPath;
       } else {
-        // Start a single-click timer
         clickTimer = setTimeout(() => {
-          handleSingleClickOnMain();
+          // single-click → open modal
+          modal.style.display = "block";
+          modalImg.src = currentMainPath;
           clickTimer = null;
         }, clickDelay);
       }
     });
 
-    function handleSingleClickOnMain() {
-      // Open the modal with the current main chart
-      modal.style.display = "block";
-      modalImg.src = currentMainPath;
-    }
-
-    function handleDoubleClickOnMain() {
-      swapCharts();
-    }
-
-    /***********************************************************
-      3. Double Click on the Modal Image => Swap
-         - Keep the modal open, displaying the new main chart
-    ***********************************************************/
-    // New, single dbl‑click handler for modalImg:
-    modalImg.addEventListener("dblclick", () => {
-      const showingDensityOrEfficiency =
-          modalImg.src.endsWith(densityMapPath) ||
-          modalImg.src.endsWith(efficiencyChartPath);
-      if (showingDensityOrEfficiency) {
-        swapCharts();
-        modalImg.src = currentMainPath;
+    // 6) Radar Chart single/double-click
+    radarMainChart.addEventListener("click", () => {
+      if (radarClickTimer) {
+        clearTimeout(radarClickTimer);
+        radarClickTimer = null;
+        // double-click → swap radar pair
+        [radarCurrentMain, radarCurrentThumb] = [radarCurrentThumb, radarCurrentMain];
+        radarMainChart.src  = radarCurrentMain;
+        radarThumbChart.src = radarCurrentThumb;
+      } else {
+        radarClickTimer = setTimeout(() => {
+          modal.style.display = "block";
+          modalImg.src = radarCurrentMain;
+          radarClickTimer = null;
+        }, clickDelay);
       }
     });
 
-    /***********************************************************
-      4. Swap Logic => toggles main vs. thumbnail
-    ***********************************************************/
-    function swapCharts() {
-      let temp = currentMainPath;
-      currentMainPath = currentThumbPath;
-      currentThumbPath = temp;
+    // 7) Efficiency chart single/double-click
+    efficiencyMainChart.addEventListener("click", () => {
+      if (effClickTimer) {
+        clearTimeout(effClickTimer);
+        effClickTimer = null;
+        [effCurrentMain, effCurrentThumb] = [effCurrentThumb, effCurrentMain];
+        efficiencyMainChart.src  = effCurrentMain;
+        efficiencyThumbChart.src = effCurrentThumb;
+      } else {
+        effClickTimer = setTimeout(() => {
+          modal.style.display = "block";
+          modalImg.src        = effCurrentMain;
+          effClickTimer = null;
+        }, clickDelay);
+      }
+    });
 
-      // Reflect changes on the page
-      mainChart.src = currentMainPath;
-      thumbChart.src = currentThumbPath;
+    // 8) Impact chart + G League Stats single-click → zoom (no swap)
+    if (impactChart) {
+      impactChart.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = impactPath;
+      });
     }
 
-    /***********************************************************
-      5. Close the Modal
-         - Whichever chart is now main remains main on the page
-    ***********************************************************/
+    if (gLeagueStatsChart) {
+      gLeagueStatsChart.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src        = gLeagueStatsPath;
+      });
+    }
+
+    // 9) Unified double-click in modal → swap whichever pair is showing
+    modalImg.addEventListener("dblclick", () => {
+      const src = modalImg.src;
+      if (src.endsWith(densityMapPath) || src.endsWith(efficiencyChartPath)) {
+        [currentMainPath, currentThumbPath] = [currentThumbPath, currentMainPath];
+        mainChart.src  = currentMainPath;
+        thumbChart.src = currentThumbPath;
+        modalImg.src   = currentMainPath;
+      }
+      else if (src.endsWith(radarMapPath) || src.endsWith(gLeagueRadarPath)) {
+        [radarCurrentMain, radarCurrentThumb] = [radarCurrentThumb, radarCurrentMain];
+        radarMainChart.src  = radarCurrentMain;
+        radarThumbChart.src = radarCurrentThumb;
+        modalImg.src        = radarCurrentMain;
+      }
+      else if (src.endsWith(nbaEffChartPath) || src.endsWith(gLeagueEffChartPath)) {
+        [effCurrentMain, effCurrentThumb] = [effCurrentThumb, effCurrentMain];
+        efficiencyMainChart.src  = effCurrentMain;
+        efficiencyThumbChart.src = effCurrentThumb;
+        modalImg.src             = effCurrentMain;
+      }
+    });
+
+    // 10) Close modal
     closeModalBtn.addEventListener("click", () => {
       modal.style.display = "none";
     });
-
-    // Optional: close modal if user clicks outside modal content
-    window.addEventListener("click", (event) => {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
+    window.addEventListener("click", e => {
+      if (e.target === modal) modal.style.display = "none";
     });
 
-    /*****************************************************************
-  NEW: open the modal when the radar plot is clicked
-*****************************************************************/
-const radarPlotPath = "aj_lawson_radar_plot.png";
-const radarImage    = document.getElementById("radarImage");
-
-radarImage.addEventListener("click", () => {
-  modal.style.display = "block";
-  modalImg.src = radarPlotPath;
-});
-
-/*  add path  */
-const impactPath  = "player_impact_estimate.png";
-
-/* grab DOM element */
-const impactChart = document.getElementById("impactChart");
-
-/* click‑to‑open modal  */
-if (impactChart) {
-  impactChart.addEventListener("click", () => {
-    modal.style.display = "block";     // show the modal
-    modalImg.src = impactPath;         // load the impact image
-  });
-}
   </script>
 </body>
 </html>
