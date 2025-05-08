@@ -16,7 +16,7 @@
       --section-text-color: #000000;   /* Card text color (dark on light) */
       --highlight-color: #f63b3b;      /* Accent color (blue-ish) */
       --border-radius: 8px;
-      --max-content-width: 1200px;
+      --max-content-width: 1320px;
       --base-spacing: 20px;
     }
 
@@ -34,10 +34,13 @@
       color: var(--text-color);
     }
     .container {
-      max-width: var(--max-content-width);
-      margin: 0 auto; /* centers everything */
-      padding: var(--base-spacing);
+      max-width: 1320px;
+      margin: 0 auto;
+      padding-left: clamp(20px, 5vw, 80px);
+      padding-right: clamp(20px, 5vw, 80px);
+      padding-top: 40px; /* add vertical space at the top */
     }
+
 
     /* Page Title */
     .page-title {
@@ -56,12 +59,30 @@
         text-align: center;
     }
 
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      gap: var(--base-spacing);
+      flex: 0 0 750px;
+      margin-left: -150px;
+    }
+
     .middle-column {
+    /* stack your note-boxes and add a gap between them */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 130px;
+    gap: var(--base-spacing);
+    }
+
+
+    /*.middle-column {
       /* keep its grid/flex placement */
       /* then nudge it over: */
-      width: 100%;
+      /*.width: 100%;
       margin-left: 130px;
-    }
+    } 
 
 
     /* new wrapper that stacks radar + chart-container vertically */
@@ -78,6 +99,16 @@
       /* add these: */
       position: relative;
       left: 150px;   /* push it 20px further right */
+    }
+
+    .g-league-wrapper {
+      display: flex;
+      justify-content: center;     /* centers the image horizontally */
+    }
+
+    .g-league-expanded {
+      width: 750px;              /* allow to fill .left-column completely */
+      border-radius: 8px;
     }
 
     .bio-chart {
@@ -218,14 +249,20 @@
     */
     .player-layout {
       display: flex;                 /* side‑by‑side */
-      gap: var(--base-spacing);      /* your existing gap */
+      gap: 10px;      /* your existing gap */
       align-items: flex-start;       /* ← prevents child flex items from stretching */
     }
 
-    /* Left Column (Bio) */
     #player-bio {
+      max-width: 400px;
+      width: 100%;
+    }
+
+
+    /* Left Column (Bio) */
+    /*#player-bio {
       flex: 0 0 300px; /* fixed column width (adjust as desired) */
-      margin-left: -150px;
+      /*margin-left: -150px;
     }
 
     /* Right Column (Stats, Charts, Additional Info) */
@@ -329,74 +366,53 @@
       =======================================
     -->
     <div class="player-layout">
-      <!-- Left Column: Player Bio -->
-      <div class="section" id="player-bio">
-        <h2>A.J. Lawson</h2>
-      
-        <!-- Put the image here, right under the heading -->
-        <img 
-          src="A.J._Lawson_Headshot.png" 
-          alt="A.J. Lawson Headshot" 
-          class="player-image" 
-        />
-      
-        <!-- Player Bio Details -->
-
-        <p class="centered-text">
-          <strong>Toronto Raptors</strong>
-        </p>
-
-        <div class="inline-stats">
-        <p><strong>Position(s):</strong> SG</p>
-        <p><strong>Age:</strong> 24</p>
+      <!-- ◀ LEFT COLUMN: Player Bio + G-League Stats (stacked vertically) ▶ -->
+      <div class="left-column">
+        <div class="section" id="player-bio">
+          <h2>A.J. Lawson</h2>
+          <img src="A.J._Lawson_Headshot.png" alt="A.J. Lawson Headshot" class="player-image" />
+          <p class="centered-text"><strong>Toronto Raptors</strong></p>
+    
+          <div class="inline-stats">
+            <p><strong>Position(s):</strong> SG</p>
+            <p><strong>Age:</strong> 24</p>
+          </div>
+          <div class="inline-stats">
+            <p><strong>Height:</strong> 6'6"</p>
+            <p><strong>Wingspan:</strong> 6'6"</p>
+          </div>
+          <p><strong>Draft:</strong> 2021 (Undrafted)</p>
+          <p class="contract-line"><strong>Contract Type:</strong> Standard (Non-Guaranteed)</p>
+          <div class="inline-stats">
+            <p><strong>Salary:</strong> $2,270,735</p>
+            <p><strong>Exp:</strong> 2026-27 (UFA)</p>
+          </div>
+    
+          <p><strong>Profile:</strong> A.J. Lawson is a Canadian guard with the Toronto Raptors of the National Basketball Association (NBA). 
+            He is currently on a two year non-guaranteed contract with the Raptors 905 and played three seasons with the South Carolina Gamecocks. 
+            He is a score first shooting guard who averaged 14.2 PPG on 34.9% 3P% in college.
+          </p>
         </div>
-
-        <div class="inline-stats">
-        <p><strong>Height:</strong> 6'6"</p>
-        <p><strong>Wingspan:</strong> 6'6"</p>
-        </div>
-
-        <p><strong>Draft:</strong> 2021 (Undrafted)</p>
-
-        <p class="contract-line"><strong>Contract Type:</strong> Standard (Non-Guaranteed)</p>
-
-        <div class="inline-stats">
-        <p><strong>Salary:</strong> $2,270,735</p>
-        <p><strong>Exp:</strong> 2026-27 (UFA)</p>
-        </div>
-
-          <!-- Additional profile text goes here -->
-</p>
-
-        <p>
-          <strong>Profile:</strong> A.J. Lawson is a Canadian guard with the Toronto Raptors of the National Basketball Association (NBA). 
-          He is currently on a two year non-guaranteed contract with the Raptors 905 and played three seasons with the South Carolina Gamecocks. 
-          He is a score first shooting guard who averaged 14.2 PPG on 34.9% 3P% in college. 
-        </p>
-
+    
+      <div class="g-league-wrapper">
         <img
-        src="aj_lawson_g_league_stats.png"
-        alt="A.J. Lawson G-League Stats"
-        id="gLeagueStatsChart"
-        class="bio-chart"
-      />
-        
-      </div> 
+          src="aj_lawson_g_league_stats.png"
+          alt="A.J. Lawson G-League Stats"
+          class="g-league-expanded"
+        />
+      </div>
+      </div>
 
       <div class="middle-column">
         <div class="section" id="notes-1">
           <h2>Offence</h2>
-          <ul><li>Almost exclusively shoots from 3-point range or near the rim</li><li>Shoots better than league average in every 3-point zone except Left Above The Break (Right Above The Break is most efficient 3-point zone +12.3 LA)</li><li>Lacks playmaking and midrange efficiency</li></ul>
+          <ul><li>Heavy three-point and paint shot diet</li><li>Right side above the arc three is his most efficient three-point zone</li><li>Lacks playmaking and midrange efficiency</li></ul>
+        </div>
+        <div class="section" id="notes-2">
+          <h2>Defense</h2>
+          <ul><li>Ranks well in DEF WS for both his NBA and G League stints</li><li>Rebounds well for his position</li><li>Profiles well as an on-ball defender (need more stats like PF and STLS)</li></ul>
         </div>
         <div class="section" id="notes-3">
-          <h2>Defense</h2>
-          <ul><li>…</li><li>…</li></ul>
-        </div>
-        <div class="section" id="notes-4">
-          <h2>Forward Outlook</h2>
-          <ul><li>…</li><li>…</li></ul>
-        </div>
-        <div class="section" id="notes-4">
           <h2>Overview</h2>
           <p>Lawson has shown to be most effective as a high usage scorer. 
           In the G League this year, he emerged as a reliable three-point threat who can get to the free-throw line consistently while also playing at a fast pace (84th percentile among guards). 
@@ -533,7 +549,7 @@
 
     const impactPath = "player_impact_estimate.png";
 
-    const gLeagueStatsPath  = "aj_lawson_g_league_stats.png";
+   // const gLeagueStatsPath  = "aj_lawson_g_league_stats.png";
 
     // 2) Grab DOM
     const mainChart      = document.getElementById("mainChart");
@@ -543,7 +559,7 @@
     const efficiencyMainChart  = document.getElementById("efficiencyMainChart");
     const efficiencyThumbChart = document.getElementById("efficiencyThumbChart");
     const impactChart    = document.getElementById("impactChart");
-    const gLeagueStatsChart = document.getElementById("gLeagueStatsChart");
+    // const gLeagueStatsChart = document.getElementById("gLeagueStatsChart");
 
     const modal       = document.getElementById("chartModal");
     const modalImg    = document.getElementById("modalImg");
@@ -625,12 +641,12 @@
       });
     }
 
-    if (gLeagueStatsChart) {
-      gLeagueStatsChart.addEventListener("click", () => {
-        modal.style.display = "block";
-        modalImg.src        = gLeagueStatsPath;
-      });
-    }
+    // if (gLeagueStatsChart) {
+    //  gLeagueStatsChart.addEventListener("click", () => {
+    //    modal.style.display = "block";
+    //    modalImg.src        = gLeagueStatsPath;
+    //  });
+    //}
 
     // 9) Unified double-click in modal → swap whichever pair is showing
     modalImg.addEventListener("dblclick", () => {
