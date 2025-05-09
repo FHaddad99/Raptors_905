@@ -32,15 +32,16 @@
       font-family: Arial, sans-serif;
       background-color: var(--page-bg-color);
       color: var(--text-color);
-    }
-    .container {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding-left: clamp(20px, 5vw, 80px);
-      padding-right: clamp(20px, 5vw, 80px);
-      padding-top: 40px; /* add vertical space at the top */
+      padding-top: 40px; /* consistent top spacing */
+      margin: 0;         /* reset default browser margin */
     }
 
+    .container {
+      width: 100%;
+      padding-left: 20px;
+      padding-right: 20px;
+      box-sizing: border-box; /* includes padding in total width */
+    }
 
     /* Page Title */
     .page-title {
@@ -63,17 +64,16 @@
       display: flex;
       flex-direction: column;
       gap: var(--base-spacing);
-      flex: 0 0 750px;
-      margin-left: -150px;
+      flex: 0 0 450px;     /* controls width of profile section */
     }
 
     .middle-column {
-    /* stack your note-boxes and add a gap between them */
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-left: 130px;
-    gap: var(--base-spacing);
+      display: flex;
+      flex-direction: column;
+      gap: var(--base-spacing);
+      flex: 1 1 100%;           /* allow it to grow and shrink */
+      max-width: 550px;         /* adjust as needed based on screen size */
+      padding-right: 10px;      /* optional spacing buffer */
     }
 
 
@@ -84,31 +84,38 @@
       margin-left: 130px;
     } 
 
-
     /* new wrapper that stacks radar + chart-container vertically */
-    .chart-column{
+    .chart-column {
       display: flex;
       flex-direction: column;
-      align-items: center;   /* center each child horizontally */
-      gap: 20px;             /* space between radar and main chart */
-      flex: 0 0 auto;        /* keep natural size inside .player-layout */
-
-      /* ← this is the magic line: */
+      align-items: center;
+      gap: 20px;
+      flex: 0 0 auto;
+      max-width: 420px;         /* ensures images don’t overflow */
       margin-left: auto;
-
-      /* add these: */
       position: relative;
-      left: 150px;   /* push it 20px further right */
     }
+
+    .chart-note {
+      font-size: 0.85rem;
+      color: #ccc;
+      text-align: center;
+      margin-top: -10px;
+      font-style: italic;
+    }
+
 
     .g-league-wrapper {
       display: flex;
-      justify-content: center;     /* centers the image horizontally */
+      justify-content: center; /* centers image horizontally */
+      width: 100%;             /* allow full width usage */
     }
 
     .g-league-expanded {
-      width: 750px;              /* allow to fill .left-column completely */
+      width: 100%;
+      max-width: 750px;    /* perfect width for your chart */
       border-radius: 8px;
+      cursor: pointer;
     }
 
     .bio-chart {
@@ -121,14 +128,13 @@
     }
 
     /* size the radar plot to match the other charts */
-    .radar-image{
-      max-width: 400px;      /* same width as .main-chart */
+    .radar-image {
+      max-width: 400px;
       width: 100%;
       height: auto;
       border-radius: 8px;
-      cursor: pointer;  /* single-click => open modal, double-click => swap */
+      cursor: pointer;
     }
-
 
     .inline-stats {
     /* Use a two-column grid: first column fixed/min-width, second column flexible */
@@ -172,14 +178,12 @@
     }
 
     /* add or modify */
-    .chart-container{
+    .chart-container {
       position: relative;
       display: inline-block;
-      width: 400px;          /* matches .main-chart max‑width */
-      max-width: 100%;
-      flex: 0 0 auto;        /* ← NEW: make it take its own column in the flex row */
+      width: 100%;
+      max-width: 400px;
     }
-
 
     /* Main chart displayed on the page */
     .main-chart {
@@ -188,7 +192,7 @@
       height: auto;
       border-radius: 8px;
       display: block;
-      cursor: pointer;  /* single-click => open modal, double-click => swap */
+      cursor: pointer;
     }
 
     /* Teaser thumbnail in bottom-right corner of main chart */
@@ -196,7 +200,7 @@
       position: absolute;
       bottom: 10px;
       right: -80px;
-      width: 80px;   
+      width: 80px;
       border: 2px solid #fff;
       border-radius: 5px;
       opacity: 0.8;
@@ -248,14 +252,16 @@
       ======================
     */
     .player-layout {
-      display: flex;                 /* side‑by‑side */
-      gap: 10px;      /* your existing gap */
-      align-items: flex-start;       /* ← prevents child flex items from stretching */
+      display: flex;
+      justify-content: space-between;  /* distributes left, middle, right evenly */
+      align-items: flex-start;
+      gap: var(--base-spacing);        /* maintains consistent spacing between columns */
     }
 
     #player-bio {
-      max-width: 400px;
-      width: 100%;
+      width: 100%;         /* fills .left-column */
+      max-width: 400px;    /* limits profile width visually */
+      margin: 0 auto;      /* centers the profile card in .left-column */
     }
 
 
@@ -399,6 +405,7 @@
           src="aj_lawson_g_league_stats.png"
           alt="A.J. Lawson G-League Stats"
           class="g-league-expanded"
+          id="statsChart"
         />
       </div>
       </div>
@@ -419,6 +426,16 @@
           The 6'6" guard rebounds the ball well for his size and performs well in the DEF WS category. These two attributes have translated over to the Raptors this season (80th percentile in REB% and 97th percentile in DEF WS) in a small sample size. 
           As a player capable of being a scoring option, improving shooting efficiency from the field and the free throw line (30th percentile in EFG%, 7th percentile in FT%) as well as playmaking (8th percentile in AST RATIO) will be important for Lawson as he faces NBA calibre defense.</p>
         </div>
+
+        <div class="section" id="video-analysis">
+          <h2>Video Analysis</h2>
+          <video controls width="100%" style="border-radius: 8px;">
+            <source src="aj_lawson_montage.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>This montage highlights A.J. Lawson's offensive aggressiveness, shot selection, and defensive hustle across both G-League and NBA play.</p>
+        </div>
+        
       </div>
 
 
@@ -426,51 +443,31 @@
 
       <!-- ▸ Right column : charts          -->
 <div class="chart-column">      
-  <div class="chart-container">
-  <!-- radar plot on top -->
-    <img src="aj_lawson_radar_plot_nba.png"
-        alt="A.J. Lawson NBA Radar Plot"
-        id="radarMainChart" 
-        class="main-chart"
-    />
-    
-    <img src="aj_lawson_g_league_radar_plot.png"
-         alt="A.J. Lawson G-League Radar Teaser"
-         id="radarThumbChart"
-         class="overlay-thumbnail" />
-
-  </div>
-
-  <div class="chart-container">
-    <img src="aj_lawson_nba_shot_density_chart.png"
-         alt="Shot Density Map"
-         id="mainChart"
-         class="main-chart" />
-
-    <img src="aj_lawson_g_league_shot_density_chart.png"
-         alt="Density Map Teaser"
-         id="thumbChart"
-         class="overlay-thumbnail" />
-  </div><!-- /.chart-container -->
-
-  <!-- NEW: NBA/G-League Efficiency Pair -->
-  <div class="chart-container">
-    <img src="aj_lawson_nba_efficiency_chart.png"
-         alt=""
-         id="efficiencyMainChart"
-         class="main-chart" />
-    <img src="aj_lawson_g_league_efficiency_chart.png"
-         alt=""
-         id="efficiencyThumbChart"
-         class="overlay-thumbnail" />
-  </div>
-
-  <!-- ▼ NEW: Player Impact Estimate chart ------------------- -->
-  <img src="player_impact_estimate.png"
-       alt="Player Impact Estimate"
-       id="impactChart"          
-       class="radar-image" />
+<!-- NBA Radar -->
+<div class="chart-container">
+  <img src="aj_lawson_radar_plot_nba.png" alt="A.J. Lawson NBA Radar Plot" id="radarMainChart" class="main-chart" />
+  <img src="aj_lawson_g_league_radar_plot.png" alt="A.J. Lawson G-League Radar Teaser" id="radarThumbChart" class="overlay-thumbnail" />
 </div>
+<p class="chart-note">{Double-click on image for G League/NBA}</p>
+      
+<!-- Shot Density -->
+<div class="chart-container">
+  <img src="aj_lawson_nba_shot_density_chart.png" alt="Shot Density Map" id="mainChart" class="main-chart" />
+  <img src="aj_lawson_g_league_shot_density_chart.png" alt="Density Map Teaser" id="thumbChart" class="overlay-thumbnail" />
+</div>
+<p class="chart-note">{Double-click on image for G League/NBA}</p>
+      
+<!-- Efficiency -->
+<div class="chart-container">
+  <img src="aj_lawson_nba_efficiency_chart.png" alt="Efficiency Chart" id="efficiencyMainChart" class="main-chart" />
+  <img src="aj_lawson_g_league_efficiency_chart.png" alt="Efficiency Teaser" id="efficiencyThumbChart" class="overlay-thumbnail" />
+</div>
+<p class="chart-note">{Double-click on image for G League/NBA}</p>
+      
+<!-- Player Impact Estimate (NO NOTE) -->
+<img src="player_impact_estimate.png" alt="Player Impact Estimate" id="impactChart" class="radar-image" />
+</div>
+      
 </div><!-- /.player-layout -->
 
 <!-- Modal (unchanged) -->
@@ -548,8 +545,8 @@
     let effCurrentThumb   = gLeagueEffChartPath;
 
     const impactPath = "player_impact_estimate.png";
-
-   // const gLeagueStatsPath  = "aj_lawson_g_league_stats.png";
+    
+    const statschartPath = "aj_lawson_g_league_stats.png";
 
     // 2) Grab DOM
     const mainChart      = document.getElementById("mainChart");
@@ -559,7 +556,7 @@
     const efficiencyMainChart  = document.getElementById("efficiencyMainChart");
     const efficiencyThumbChart = document.getElementById("efficiencyThumbChart");
     const impactChart    = document.getElementById("impactChart");
-    // const gLeagueStatsChart = document.getElementById("gLeagueStatsChart");
+    const statsChart = document.getElementById("statsChart");
 
     const modal       = document.getElementById("chartModal");
     const modalImg    = document.getElementById("modalImg");
@@ -641,12 +638,12 @@
       });
     }
 
-    // if (gLeagueStatsChart) {
-    //  gLeagueStatsChart.addEventListener("click", () => {
-    //    modal.style.display = "block";
-    //    modalImg.src        = gLeagueStatsPath;
-    //  });
-    //}
+    if (statsChart) {
+      statsChart.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src        = statschartPath;
+        });
+    }
 
     // 9) Unified double-click in modal → swap whichever pair is showing
     modalImg.addEventListener("dblclick", () => {
