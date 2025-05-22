@@ -10,92 +10,70 @@
       ==========================
     */
     :root {
-      --page-bg-color: #1f2937;        /* Dark background color */
-      --text-color: #ffffff;           /* Main text color (light on dark) */
-      --section-bg-color: #f1f5f9;     /* Card background (light) */
-      --section-text-color: #000000;   /* Card text color (dark on light) */
-      --highlight-color: #f63b3b;      /* Accent color (blue-ish) */
+      --page-bg-color: #1f2937;
+      --text-color: #ffffff;
+      --section-bg-color: #f1f5f9;
+      --section-text-color: #000000;
+      --highlight-color: #f63b3b;
       --border-radius: 8px;
       --max-content-width: 1320px;
       --base-spacing: 20px;
     }
-
-    /* Global Reset */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
-    /* Body & Container */
     body {
       font-family: Arial, sans-serif;
       background-color: var(--page-bg-color);
       color: var(--text-color);
-      padding-top: 40px; /* consistent top spacing */
-      margin: 0;         /* reset default browser margin */
+      padding-top: 40px;
+      margin: 0;
     }
-
     .container {
       width: 100%;
       padding-left: 20px;
       padding-right: 20px;
-      box-sizing: border-box; /* includes padding in total width */
+      box-sizing: border-box;
     }
-
-    /* Page Title */
     .page-title {
       text-align: center;
       margin-bottom: calc(var(--base-spacing) * 1.5);
       font-size: 2rem;
       color: var(--highlight-color);
     }
-
     .centered-text {
       text-align: center;
     }
-
-     /* Center only the <h2> heading in the bio card */
-      #player-bio h2 {
-        text-align: center;
+    #player-bio h2 {
+      text-align: center;
     }
-
     .left-column {
       display: flex;
       flex-direction: column;
       gap: var(--base-spacing);
-      flex: 0 0 450px;     /* controls width of profile section */
+      flex: 0 0 25vw;
+      max-width: none;
     }
-
     .middle-column {
       display: flex;
       flex-direction: column;
       gap: var(--base-spacing);
-      flex: 1 1 100%;           /* allow it to grow and shrink */
-      max-width: 550px;         /* adjust as needed based on screen size */
-      padding-right: 10px;      /* optional spacing buffer */
+      flex: 1 1 auto;
+      min-width: 0;
+      padding-right: 0 10px;
     }
-
-
-    /*.middle-column {
-      /* keep its grid/flex placement */
-      /* then nudge it over: */
-      /*.width: 100%;
-      margin-left: 130px;
-    } 
-
-    /* new wrapper that stacks radar + chart-container vertically */
     .chart-column {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 20px;
-      flex: 0 0 auto;
-      max-width: 420px;         /* ensures images don’t overflow */
+      flex: 0 0 25vw;
+      max-width: none;
       margin-left: auto;
       position: relative;
     }
-
     .chart-note {
       font-size: 0.85rem;
       color: #ccc;
@@ -103,128 +81,114 @@
       margin-top: -10px;
       font-style: italic;
     }
-
-
     .g-league-wrapper {
       display: flex;
-      justify-content: center; /* centers image horizontally */
-      width: 100%;             /* allow full width usage */
+      justify-content: center;
+      width: 100%;
     }
-
     .g-league-expanded {
       width: 100%;
-      max-width: 750px;    /* perfect width for your chart */
+      max-width: 750px;
       border-radius: 8px;
       cursor: pointer;
     }
-
+    .stats-tab-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+    .stats-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .tab-button {
+      background-color: #e2e8f0;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #1f2937;
+      transition: background 0.3s;
+    }
+    .tab-button:hover {
+      background-color: #cbd5e1;
+    }
+    .tab-button.active {
+      background-color: #f63b3b;
+      color: white;
+    }
     .bio-chart {
-      display: block;                   /* take full width of the bio card */
-      width: 100%;                      /* cap at the 300px bio-column width */
+      display: block;
+      width: 100%;
       height: auto;
-      margin-top: var(--base-spacing);  /* breathing room above */
+      margin-top: var(--base-spacing);
       border-radius: var(--border-radius);
       cursor: pointer;
     }
-
-    /* size the radar plot to match the other charts */
     .radar-image {
-      max-width: 400px;
       width: 100%;
       height: auto;
       border-radius: 8px;
       cursor: pointer;
+      max-width: 100%;
     }
-
     .inline-stats {
-    /* Use a two-column grid: first column fixed/min-width, second column flexible */
       display: grid;
-      grid-template-columns: 145px 1fr; /* Adjust 145px as needed for your longest label */
-      column-gap: 20px;                /* spacing between columns */
-      align-items: center;             /* vertically center the items in each row */
-      margin-bottom: 10px;             /* spacing between rows */
+      grid-template-columns: 1fr 1fr;
+      column-gap: 40px;
+      justify-content: center;
+      max-width: 90%;
+      margin: 0 auto 10px auto;
     }
-
-    /* Prevent the text from breaking onto a new line */
     .inline-stats p {
-      margin: 0; 
-      white-space: nowrap; 
-    }
-
-    .inline-charts {
-      display: flex;        /* side-by-side layout */
-      gap: 20px;            /* spacing between the two images */
-      justify-content: center; /* center them horizontally, if desired */
-      align-items: center;  /* vertically center them in the row */
-    }
-
-    .image-panel {
-      display: flex;     /* horizontally line up the two images */
-      gap: 20px;         /* space between them */
-      align-items: center; /* vertically center if one is taller, etc. */
-    }
-
-    .chart-image {
-      max-width: 400px; /* limit each image’s max width so they fit nicely side by side */
-      width: 100%;      /* image scales responsively if smaller screens require it */
-      height: auto;
-      border-radius: 8px; /* optional: round corners */
-      cursor: pointer;  /* single-click => open modal, double-click => swap */
-    }
-
-    .contract-line p,
-      .contract-line {
+      margin: 0;
       white-space: nowrap;
     }
-
-    /* add or modify */
+    .inline-stats.single {
+      margin-left: 0;
+      padding-left: 30px;
+      margin-bottom: 10px;
+    }
     .chart-container {
       position: relative;
       display: inline-block;
       width: 100%;
-      max-width: 400px;
+      max-width: 100%;
     }
-
-    /* Main chart displayed on the page */
     .main-chart {
-      max-width: 400px;
       width: 100%;
       height: auto;
       border-radius: 8px;
       display: block;
       cursor: pointer;
+      max-width: 100%;
     }
-
-    /* Teaser thumbnail in bottom-right corner of main chart */
     .overlay-thumbnail {
-      position: absolute;
-      bottom: 10px;
-      right: -80px;
-      width: 80px;
-      border: 2px solid #fff;
-      border-radius: 5px;
-      opacity: 0.8;
+      display: none;
     }
-
-    /* Modal overlay for zoomed-in view */
     .modal {
-      display: none;       /* hidden by default */
+      display: none;
       position: fixed;
       z-index: 9999;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0,0,0,0.7);
     }
-    /* Modal content area */
     .modal-content {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       max-width: 80%;
-      background: #fff;
-      border-radius: 8px;
-      padding: 10px;
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
     }
     .close-btn {
       float: right;
@@ -237,13 +201,14 @@
     .close-btn:hover {
       color: #333;
     }
-    /* The enlarged image inside the modal */
     .modal-img {
       display: block;
-      max-width: 100%;
+      max-width: 80vw;
+      max-height: 80vh;
+      width: auto;
       height: auto;
       margin: 0 auto;
-      cursor: pointer; /* so user knows double-click can swap here too */
+      cursor: pointer;
     }
 
     /*
@@ -260,7 +225,7 @@
 
     #player-bio {
       width: 100%;         /* fills .left-column */
-      max-width: 400px;    /* limits profile width visually */
+      max-width: none;    /* limits profile width visually */
       margin: 0 auto;      /* centers the profile card in .left-column */
     }
 
@@ -383,12 +348,20 @@
             <p><strong>Position(s):</strong> SG</p>
             <p><strong>Age:</strong> 24</p>
           </div>
+
           <div class="inline-stats">
             <p><strong>Height:</strong> 6'6"</p>
             <p><strong>Wingspan:</strong> 6'6"</p>
           </div>
-          <p><strong>Draft:</strong> 2021 (Undrafted)</p>
-          <p class="contract-line"><strong>Contract Type:</strong> Standard (Non-Guaranteed)</p>
+
+          <div class="inline-stats single">
+            <p><strong>Draft:</strong> 2021 (Undrafted)</p>
+          </div>
+
+          <div class="inline-stats single">
+            <p><strong>Contract Type:</strong> Standard (Non-Guaranteed)</p>
+          </div>
+
           <div class="inline-stats">
             <p><strong>Salary:</strong> $2,270,735</p>
             <p><strong>Exp:</strong> 2026-27 (UFA)</p>
@@ -400,14 +373,21 @@
           </p>
         </div>
     
-      <div class="g-league-wrapper">
-        <img
-          src="aj_lawson_g_league_stats.png"
-          alt="A.J. Lawson G-League Stats"
-          class="g-league-expanded"
-          id="statsChart"
-        />
-      </div>
+      <div class="stats-tab-wrapper">
+        <div class="stats-tabs">
+          <button class="tab-button active" data-img="NBA_stats.png">NBA</button>
+          <button class="tab-button" data-img="aj_lawson_g_league_stats.png">G League</button>
+          <button class="tab-button" data-img="College_Stats.png">College</button>
+        </div>
+        <div class="g-league-wrapper">
+          <img
+            src="NBA_stats.png"
+            alt="A.J. Lawson Stats Table"
+            class="g-league-expanded"
+            id="statsImage"
+          />
+        </div>
+        </div>
       </div>
 
       <div class="middle-column">
@@ -417,7 +397,7 @@
         </div>
         <div class="section" id="notes-2">
           <h2>Defense</h2>
-          <ul><li>Ranks well in DEF WS for both his NBA and G League stints</li><li>Rebounds well for his position</li><li>Profiles well as an on-ball defender (need more stats like PF and STLS)</li></ul>
+          <ul><li>Rebounds well for his position</li><li>Displays good hustle and loose ball awareness</li></ul>
         </div>
         <div class="section" id="notes-3">
           <h2>Overview</h2>
@@ -433,7 +413,6 @@
             <source src="aj_lawson_montage.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-          <p>This montage highlights A.J. Lawson's offensive aggressiveness, shot selection, and defensive hustle across both G-League and NBA play.</p>
         </div>
         
       </div>
@@ -528,153 +507,158 @@
 
   <script>
 
-    // 1) Paths & state
-    const densityMapPath      = "aj_lawson_nba_shot_density_chart.png";
-    const efficiencyChartPath = "aj_lawson_g_league_shot_density_chart.png";
-    let currentMainPath  = densityMapPath;
-    let currentThumbPath = efficiencyChartPath;
+     // 1) Paths & state
+  const densityMapPath = "aj_lawson_nba_shot_density_chart.png";
+  const efficiencyChartPath = "aj_lawson_g_league_shot_density_chart.png";
+  let currentMainPath = densityMapPath;
+  let currentThumbPath = efficiencyChartPath;
 
-    const radarMapPath     = "aj_lawson_radar_plot_nba.png";
-    const gLeagueRadarPath = "aj_lawson_g_league_radar_plot.png";
-    let radarCurrentMain   = radarMapPath;
-    let radarCurrentThumb  = gLeagueRadarPath;
+  const radarMapPath = "aj_lawson_radar_plot_nba.png";
+  const gLeagueRadarPath = "aj_lawson_g_league_radar_plot.png";
+  let radarCurrentMain = radarMapPath;
+  let radarCurrentThumb = gLeagueRadarPath;
 
-    const nbaEffChartPath        = "aj_lawson_nba_efficiency_chart.png";
-    const gLeagueEffChartPath    = "aj_lawson_g_league_efficiency_chart.png";
-    let effCurrentMain    = nbaEffChartPath;
-    let effCurrentThumb   = gLeagueEffChartPath;
+  const nbaEffChartPath = "aj_lawson_nba_efficiency_chart.png";
+  const gLeagueEffChartPath = "aj_lawson_g_league_efficiency_chart.png";
+  let effCurrentMain = nbaEffChartPath;
+  let effCurrentThumb = gLeagueEffChartPath;
 
-    const impactPath = "player_impact_estimate.png";
-    
-    const statschartPath = "aj_lawson_g_league_stats.png";
+  const impactPath = "player_impact_estimate.png";
 
-    // 2) Grab DOM
-    const mainChart      = document.getElementById("mainChart");
-    const thumbChart     = document.getElementById("thumbChart");
-    const radarMainChart = document.getElementById("radarMainChart");
-    const radarThumbChart= document.getElementById("radarThumbChart");
-    const efficiencyMainChart  = document.getElementById("efficiencyMainChart");
-    const efficiencyThumbChart = document.getElementById("efficiencyThumbChart");
-    const impactChart    = document.getElementById("impactChart");
-    const statsChart = document.getElementById("statsChart");
+  // 2) Grab DOM
+  const mainChart = document.getElementById("mainChart");
+  const thumbChart = document.getElementById("thumbChart");
+  const radarMainChart = document.getElementById("radarMainChart");
+  const radarThumbChart = document.getElementById("radarThumbChart");
+  const efficiencyMainChart = document.getElementById("efficiencyMainChart");
+  const efficiencyThumbChart = document.getElementById("efficiencyThumbChart");
+  const impactChart = document.getElementById("impactChart");
+  const statsImage = document.getElementById("statsImage");
 
-    const modal       = document.getElementById("chartModal");
-    const modalImg    = document.getElementById("modalImg");
-    const closeModalBtn = document.getElementById("closeModalBtn");
+  const modal = document.getElementById("chartModal");
+  const modalImg = document.getElementById("modalImg");
+  const closeModalBtn = document.getElementById("closeModalBtn");
 
-    // 3) Initialize srcs
-    mainChart.src       = currentMainPath;
-    thumbChart.src      = currentThumbPath;
-    radarMainChart.src  = radarCurrentMain;
-    radarThumbChart.src = radarCurrentThumb;
-    efficiencyMainChart.src  = effCurrentMain;
-    efficiencyThumbChart.src = effCurrentThumb;
+  // 3) Initialize srcs
+  mainChart.src = currentMainPath;
+  thumbChart.src = currentThumbPath;
+  radarMainChart.src = radarCurrentMain;
+  radarThumbChart.src = radarCurrentThumb;
+  efficiencyMainChart.src = effCurrentMain;
+  efficiencyThumbChart.src = effCurrentThumb;
 
-    // 4) Shared delay
-    const clickDelay = 300;
-    let clickTimer        = null;
-    let radarClickTimer   = null;
-    let effClickTimer     = null;
+  // 4) Shared delay
+  const clickDelay = 300;
+  let clickTimer = null;
+  let radarClickTimer = null;
+  let effClickTimer = null;
 
-    // 5) Main Chart single/double-click
-    mainChart.addEventListener("click", () => {
-      if (clickTimer) {
-        clearTimeout(clickTimer);
+  // 5) Main Chart single/double-click
+  mainChart.addEventListener("click", () => {
+    if (clickTimer) {
+      clearTimeout(clickTimer);
+      clickTimer = null;
+      [currentMainPath, currentThumbPath] = [currentThumbPath, currentMainPath];
+      mainChart.src = currentMainPath;
+      thumbChart.src = currentThumbPath;
+    } else {
+      clickTimer = setTimeout(() => {
+        modal.style.display = "block";
+        modalImg.src = currentMainPath;
         clickTimer = null;
-        // double-click → swap
-        [currentMainPath, currentThumbPath] = [currentThumbPath, currentMainPath];
-        mainChart.src  = currentMainPath;
-        thumbChart.src = currentThumbPath;
-      } else {
-        clickTimer = setTimeout(() => {
-          // single-click → open modal
-          modal.style.display = "block";
-          modalImg.src = currentMainPath;
-          clickTimer = null;
-        }, clickDelay);
-      }
-    });
+      }, clickDelay);
+    }
+  });
 
-    // 6) Radar Chart single/double-click
-    radarMainChart.addEventListener("click", () => {
-      if (radarClickTimer) {
-        clearTimeout(radarClickTimer);
+  // 6) Radar Chart single/double-click
+  radarMainChart.addEventListener("click", () => {
+    if (radarClickTimer) {
+      clearTimeout(radarClickTimer);
+      radarClickTimer = null;
+      [radarCurrentMain, radarCurrentThumb] = [radarCurrentThumb, radarCurrentMain];
+      radarMainChart.src = radarCurrentMain;
+      radarThumbChart.src = radarCurrentThumb;
+    } else {
+      radarClickTimer = setTimeout(() => {
+        modal.style.display = "block";
+        modalImg.src = radarCurrentMain;
         radarClickTimer = null;
-        // double-click → swap radar pair
-        [radarCurrentMain, radarCurrentThumb] = [radarCurrentThumb, radarCurrentMain];
-        radarMainChart.src  = radarCurrentMain;
-        radarThumbChart.src = radarCurrentThumb;
-      } else {
-        radarClickTimer = setTimeout(() => {
-          modal.style.display = "block";
-          modalImg.src = radarCurrentMain;
-          radarClickTimer = null;
-        }, clickDelay);
-      }
-    });
+      }, clickDelay);
+    }
+  });
 
-    // 7) Efficiency chart single/double-click
-    efficiencyMainChart.addEventListener("click", () => {
-      if (effClickTimer) {
-        clearTimeout(effClickTimer);
+  // 7) Efficiency Chart single/double-click
+  efficiencyMainChart.addEventListener("click", () => {
+    if (effClickTimer) {
+      clearTimeout(effClickTimer);
+      effClickTimer = null;
+      [effCurrentMain, effCurrentThumb] = [effCurrentThumb, effCurrentMain];
+      efficiencyMainChart.src = effCurrentMain;
+      efficiencyThumbChart.src = effCurrentThumb;
+    } else {
+      effClickTimer = setTimeout(() => {
+        modal.style.display = "block";
+        modalImg.src = effCurrentMain;
         effClickTimer = null;
-        [effCurrentMain, effCurrentThumb] = [effCurrentThumb, effCurrentMain];
-        efficiencyMainChart.src  = effCurrentMain;
-        efficiencyThumbChart.src = effCurrentThumb;
-      } else {
-        effClickTimer = setTimeout(() => {
-          modal.style.display = "block";
-          modalImg.src        = effCurrentMain;
-          effClickTimer = null;
-        }, clickDelay);
-      }
-    });
-
-    // 8) Impact chart + G League Stats single-click → zoom (no swap)
-    if (impactChart) {
-      impactChart.addEventListener("click", () => {
-        modal.style.display = "block";
-        modalImg.src = impactPath;
-      });
+      }, clickDelay);
     }
+  });
 
-    if (statsChart) {
-      statsChart.addEventListener("click", () => {
-        modal.style.display = "block";
-        modalImg.src        = statschartPath;
-        });
+  // 8) Static single-click images (no swap): impact + stats
+  if (impactChart) {
+    impactChart.addEventListener("click", () => {
+      modal.style.display = "block";
+      modalImg.src = impactPath;
+    });
+  }
+
+  if (statsImage) {
+    statsImage.addEventListener("click", () => {
+      modal.style.display = "block";
+      modalImg.src = statsImage.src; // Grab current visible tab's image
+    });
+  }
+
+  // 9) Modal double-click to swap (only applies to radar / density / eff)
+  modalImg.addEventListener("dblclick", () => {
+    const src = modalImg.src;
+    if (src.endsWith(densityMapPath) || src.endsWith(efficiencyChartPath)) {
+      [currentMainPath, currentThumbPath] = [currentThumbPath, currentMainPath];
+      mainChart.src = currentMainPath;
+      thumbChart.src = currentThumbPath;
+      modalImg.src = currentMainPath;
+    } else if (src.endsWith(radarMapPath) || src.endsWith(gLeagueRadarPath)) {
+      [radarCurrentMain, radarCurrentThumb] = [radarCurrentThumb, radarCurrentMain];
+      radarMainChart.src = radarCurrentMain;
+      radarThumbChart.src = radarCurrentThumb;
+      modalImg.src = radarCurrentMain;
+    } else if (src.endsWith(nbaEffChartPath) || src.endsWith(gLeagueEffChartPath)) {
+      [effCurrentMain, effCurrentThumb] = [effCurrentThumb, effCurrentMain];
+      efficiencyMainChart.src = effCurrentMain;
+      efficiencyThumbChart.src = effCurrentThumb;
+      modalImg.src = effCurrentMain;
     }
+  });
 
-    // 9) Unified double-click in modal → swap whichever pair is showing
-    modalImg.addEventListener("dblclick", () => {
-      const src = modalImg.src;
-      if (src.endsWith(densityMapPath) || src.endsWith(efficiencyChartPath)) {
-        [currentMainPath, currentThumbPath] = [currentThumbPath, currentMainPath];
-        mainChart.src  = currentMainPath;
-        thumbChart.src = currentThumbPath;
-        modalImg.src   = currentMainPath;
-      }
-      else if (src.endsWith(radarMapPath) || src.endsWith(gLeagueRadarPath)) {
-        [radarCurrentMain, radarCurrentThumb] = [radarCurrentThumb, radarCurrentMain];
-        radarMainChart.src  = radarCurrentMain;
-        radarThumbChart.src = radarCurrentThumb;
-        modalImg.src        = radarCurrentMain;
-      }
-      else if (src.endsWith(nbaEffChartPath) || src.endsWith(gLeagueEffChartPath)) {
-        [effCurrentMain, effCurrentThumb] = [effCurrentThumb, effCurrentMain];
-        efficiencyMainChart.src  = effCurrentMain;
-        efficiencyThumbChart.src = effCurrentThumb;
-        modalImg.src             = effCurrentMain;
-      }
-    });
+  // 10) Close modal on click
+  closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+  window.addEventListener("click", e => {
+    if (e.target === modal) modal.style.display = "none";
+  });
 
-    // 10) Close modal
-    closeModalBtn.addEventListener("click", () => {
-      modal.style.display = "none";
+  // 11) Tab switching logic
+  document.querySelectorAll(".tab-button").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".tab-button").forEach(btn =>
+        btn.classList.remove("active")
+      );
+      button.classList.add("active");
+      const newSrc = button.getAttribute("data-img");
+      statsImage.src = newSrc;
     });
-    window.addEventListener("click", e => {
-      if (e.target === modal) modal.style.display = "none";
-    });
+  });
 
   </script>
 </body>
