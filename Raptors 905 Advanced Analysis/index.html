@@ -158,6 +158,40 @@
       width: 100%;
       max-width: 100%;
     }
+
+    .similar-player-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .similar-player {
+      flex: 1 1 30%;
+      text-align: center;
+    }
+
+    .similar-player h3 {
+      margin-bottom: 10px;
+      color: var(--section-text-color); /* This is black by default in your theme */
+    }
+
+    #similar-players h3 {
+      font-size: 1rem;           /* Smaller font size */
+      color: var(--section-text-color);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .similar-radar {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
     .main-chart {
       width: 100%;
       height: auto;
@@ -336,14 +370,22 @@
         Main Two-Column Layout
       =======================================
     -->
-    <div class="player-layout">
-      <!-- ◀ LEFT COLUMN: Player Bio + G-League Stats (stacked vertically) ▶ -->
+
+<div class="player-layout">
+
+  <!-- ✅ Grouped Left + Middle Columns and Added Similar Players Section -->
+  <div class="main-columns" style="display: flex; flex-direction: column; gap: var(--base-spacing); flex: 1 1 auto;">
+
+    <!-- Horizontal layout for Left + Middle columns -->
+    <div style="display: flex; flex-direction: row; gap: var(--base-spacing);">
+      
+      <!-- ◀ LEFT COLUMN: Player Bio + Stats -->
       <div class="left-column">
         <div class="section" id="player-bio">
           <h2>A.J. Lawson</h2>
           <img src="A.J._Lawson_Headshot.png" alt="A.J. Lawson Headshot" class="player-image" />
           <p class="centered-text"><strong>Toronto Raptors</strong></p>
-    
+
           <div class="inline-stats">
             <p><strong>Position(s):</strong> SG</p>
             <p><strong>Age:</strong> 24</p>
@@ -366,39 +408,49 @@
             <p><strong>Salary:</strong> $2,270,735</p>
             <p><strong>Exp:</strong> 2026-27 (UFA)</p>
           </div>
-    
+
           <p><strong>Profile:</strong> A.J. Lawson is a Canadian guard with the Toronto Raptors of the National Basketball Association (NBA). 
             He is currently on a two year non-guaranteed contract with the Raptors 905 and played three seasons with the South Carolina Gamecocks. 
             He is a score first shooting guard who averaged 14.2 PPG on 34.9% 3P% in college.
           </p>
         </div>
-    
-      <div class="stats-tab-wrapper">
-        <div class="stats-tabs">
-          <button class="tab-button active" data-img="NBA_stats.png">NBA</button>
-          <button class="tab-button" data-img="aj_lawson_g_league_stats.png">G League</button>
-          <button class="tab-button" data-img="College_Stats.png">College</button>
-        </div>
-        <div class="g-league-wrapper">
-          <img
-            src="NBA_stats.png"
-            alt="A.J. Lawson Stats Table"
-            class="g-league-expanded"
-            id="statsImage"
-          />
-        </div>
-        </div>
-      </div>
 
+        <div class="stats-tab-wrapper">
+          <div class="stats-tabs">
+            <button class="tab-button active" data-img="NBA_stats.png">NBA</button>
+            <button class="tab-button" data-img="aj_lawson_g_league_stats.png">G League</button>
+            <button class="tab-button" data-img="College_Stats.png">College</button>
+          </div>
+          <div class="g-league-wrapper">
+            <img
+              src="NBA_stats.png"
+              alt="A.J. Lawson Stats Table"
+              class="g-league-expanded"
+              id="statsImage"
+            />
+          </div>
+        </div>
+      </div> <!-- /.left-column -->
+
+      <!-- ▶ MIDDLE COLUMN: Notes + Video -->
       <div class="middle-column">
         <div class="section" id="notes-1">
           <h2>Offence</h2>
-          <ul><li>Heavy three-point and paint shot diet</li><li>Right side above the arc three is his most efficient three-point zone</li><li>Lacks playmaking and midrange efficiency</li></ul>
+          <ul>
+            <li>Heavy three-point and paint shot diet</li>
+            <li>Right side above the arc three is his most efficient three-point zone</li>
+            <li>Lacks playmaking and midrange efficiency</li>
+          </ul>
         </div>
+
         <div class="section" id="notes-2">
           <h2>Defense</h2>
-          <ul><li>Rebounds well for his position</li><li>Displays good hustle and loose ball awareness</li></ul>
+          <ul>
+            <li>Rebounds well for his position</li>
+            <li>Displays good hustle and loose ball awareness</li>
+          </ul>
         </div>
+
         <div class="section" id="notes-3">
           <h2>Overview</h2>
           <p>Lawson has shown to be most effective as a high usage scorer. 
@@ -414,40 +466,56 @@
             Your browser does not support the video tag.
           </video>
         </div>
-        
-      </div>
+      </div> <!-- /.middle-column -->
+    </div> <!-- End horizontal row for left + middle -->
+
+    <!-- ✅ Similar Players Section Spanning Both Columns -->
+<div class="section" id="similar-players">
+  <h2>Similar Players</h2>
+
+  <div class="similar-player-group">
+    <div class="similar-player">
+      <h3>Ja'Kobe Walter</h3>
+      <img src="Jakobe_Walter_Radar.png" alt="Ja'Kobe Walter Radar" class="similar-radar" id="similarRadarJakobe" />
+    </div>
+    <div class="similar-player">
+      <h3>Keldon Johnson</h3>
+      <img src="Keldon_Johnson_Radar.png" alt="Keldon Johnson Radar" class="similar-radar" id="similarRadarKeldon" />
+    </div>
+    <div class="similar-player">
+      <h3>Brandon Boston</h3>
+      <img src="Brandon_Boston_Radar.png" alt="Brandon Boston Radar" class="similar-radar" id="similarRadarBrandon" />
+    </div>
+  </div>
+</div>
 
 
-      <!-- Right column: Just the two chart images, side by side -->
+  </div> <!-- /.main-columns -->
 
-      <!-- ▸ Right column : charts          -->
-<div class="chart-column">      
-<!-- NBA Radar -->
-<div class="chart-container">
-  <img src="aj_lawson_radar_plot_nba.png" alt="A.J. Lawson NBA Radar Plot" id="radarMainChart" class="main-chart" />
-  <img src="aj_lawson_g_league_radar_plot.png" alt="A.J. Lawson G-League Radar Teaser" id="radarThumbChart" class="overlay-thumbnail" />
-</div>
-<p class="chart-note">{Double-click on image for G League/NBA}</p>
-      
-<!-- Shot Density -->
-<div class="chart-container">
-  <img src="aj_lawson_nba_shot_density_chart.png" alt="Shot Density Map" id="mainChart" class="main-chart" />
-  <img src="aj_lawson_g_league_shot_density_chart.png" alt="Density Map Teaser" id="thumbChart" class="overlay-thumbnail" />
-</div>
-<p class="chart-note">{Double-click on image for G League/NBA}</p>
-      
-<!-- Efficiency -->
-<div class="chart-container">
-  <img src="aj_lawson_nba_efficiency_chart.png" alt="Efficiency Chart" id="efficiencyMainChart" class="main-chart" />
-  <img src="aj_lawson_g_league_efficiency_chart.png" alt="Efficiency Teaser" id="efficiencyThumbChart" class="overlay-thumbnail" />
-</div>
-<p class="chart-note">{Double-click on image for G League/NBA}</p>
-      
-<!-- Player Impact Estimate (NO NOTE) -->
-<img src="player_impact_estimate.png" alt="Player Impact Estimate" id="impactChart" class="radar-image" />
-</div>
-      
-</div><!-- /.player-layout -->
+  <!-- ▶ RIGHT COLUMN: Charts (unchanged) -->
+  <div class="chart-column">
+    <div class="chart-container">
+      <img src="aj_lawson_radar_plot_nba.png" alt="A.J. Lawson NBA Radar Plot" id="radarMainChart" class="main-chart" />
+      <img src="aj_lawson_g_league_radar_plot.png" alt="A.J. Lawson G-League Radar Teaser" id="radarThumbChart" class="overlay-thumbnail" />
+    </div>
+    <p class="chart-note">{Double-click on image for G League/NBA}</p>
+
+    <div class="chart-container">
+      <img src="aj_lawson_nba_shot_density_chart.png" alt="Shot Density Map" id="mainChart" class="main-chart" />
+      <img src="aj_lawson_g_league_shot_density_chart.png" alt="Density Map Teaser" id="thumbChart" class="overlay-thumbnail" />
+    </div>
+    <p class="chart-note">{Double-click on image for G League/NBA}</p>
+
+    <div class="chart-container">
+      <img src="aj_lawson_nba_efficiency_chart.png" alt="Efficiency Chart" id="efficiencyMainChart" class="main-chart" />
+      <img src="aj_lawson_g_league_efficiency_chart.png" alt="Efficiency Teaser" id="efficiencyThumbChart" class="overlay-thumbnail" />
+    </div>
+    <p class="chart-note">{Double-click on image for G League/NBA}</p>
+
+    <img src="player_impact_estimate.png" alt="Player Impact Estimate" id="impactChart" class="radar-image" />
+  </div> <!-- /.chart-column -->
+
+</div> <!-- /.player-layout -->
 
 <!-- Modal (unchanged) -->
 <div class="modal" id="chartModal">
@@ -515,6 +583,7 @@
 
   const radarMapPath = "aj_lawson_radar_plot_nba.png";
   const gLeagueRadarPath = "aj_lawson_g_league_radar_plot.png";
+  
   let radarCurrentMain = radarMapPath;
   let radarCurrentThumb = gLeagueRadarPath;
 
@@ -534,6 +603,9 @@
   const efficiencyThumbChart = document.getElementById("efficiencyThumbChart");
   const impactChart = document.getElementById("impactChart");
   const statsImage = document.getElementById("statsImage");
+  const similarRadarJakobe = document.getElementById("similarRadarJakobe");
+  const similarRadarKeldon = document.getElementById("similarRadarKeldon");
+  const similarRadarBrandon = document.getElementById("similarRadarBrandon");
 
   const modal = document.getElementById("chartModal");
   const modalImg = document.getElementById("modalImg");
@@ -605,6 +677,15 @@
   });
 
   // 8) Static single-click images (no swap): impact + stats
+  [similarRadarJakobe, similarRadarKeldon, similarRadarBrandon].forEach(img => {
+    if (img) {
+      img.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = img.src;
+      });
+    }
+  });
+
   if (impactChart) {
     impactChart.addEventListener("click", () => {
       modal.style.display = "block";
