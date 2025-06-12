@@ -10,11 +10,11 @@
       ==========================
     */
     :root {
-      --page-bg-color: #1f2937;
+      --page-bg-color: #970202;
       --text-color: #ffffff;
-      --section-bg-color: #f1f5f9;
-      --section-text-color: #000000;
-      --highlight-color: #f63b3b;
+      --section-bg-color: linear-gradient(to right, #990000, #1f1f1f); /* Raptors-inspired red to black */
+      --section-text-color: #ffffff;
+      --highlight-color: #f70000;
       --border-radius: 8px;
       --max-content-width: 1320px;
       --base-spacing: 20px;
@@ -26,7 +26,7 @@
     }
     body {
       font-family: Arial, sans-serif;
-      background-color: var(--page-bg-color);
+      background: linear-gradient(145deg, #720026, #000000);
       color: var(--text-color);
       padding-top: 40px;
       margin: 0;
@@ -136,22 +136,41 @@
       max-width: 100%;
     }
     .inline-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 40px;
-      justify-content: center;
-      max-width: 90%;
-      margin: 0 auto 10px auto;
+      margin-bottom: 8px; /* Adjust this value for desired spacing */
     }
-    .inline-stats p {
+
+    .inline-stats-inner {
+      display: flex;
+      justify-content: space-between;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 55px; /* Controls total margin inside the block */
+    }
+
+    .inline-stats-inner p {
       margin: 0;
       white-space: nowrap;
     }
-    .inline-stats.single {
-      margin-left: 0;
-      padding-left: 30px;
-      margin-bottom: 10px;
+
+    .inline-stats-inner p:first-child {
+      text-align: left;
+      padding-right: 110px; /* Pulls text closer to center */
+      flex: 1;
     }
+
+    .inline-stats-inner p:last-child {
+      text-align: left;
+      padding-left: 45px; /* Pulls text away from center */
+      flex: 1;
+    }
+
+    /* ✅ Aligns single-line blocks with the left-hand items */
+    .inline-left {
+      padding-left: calc(60px); /* adjusts for section padding + half gap */
+      margin: 0 auto;
+      max-width: 600px;
+    }
+
     .chart-container {
       position: relative;
       display: inline-block;
@@ -161,24 +180,34 @@
 
     .similar-player-group {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-between; /* ensures even spacing */
       gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 20px;
+      flex-wrap: nowrap;
     }
 
+
     .similar-player {
-      flex: 1 1 30%;
+      flex: 1 1 0;
+      max-width: 33%;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+
+    .player-mugshot {
+      height: 120px;
+      margin-bottom: 15px;
     }
 
     .similar-player h3 {
-      margin-bottom: 10px;
-      color: var(--section-text-color); /* This is black by default in your theme */
+      margin-bottom: 5px;
+      color: var(--section-text-color);
     }
 
     #similar-players h3 {
-      font-size: 1rem;           /* Smaller font size */
+      font-size: 1.3rem;           /* Smaller font size */
       color: var(--section-text-color);
       margin-bottom: 8px;
       font-weight: 600;
@@ -186,7 +215,7 @@
 
     .similar-radar {
       width: 100%;
-      max-width: 300px;
+      max-width: 100%;
       height: auto;
       border-radius: 8px;
       cursor: pointer;
@@ -258,10 +287,14 @@
     }
 
     #player-bio {
-      width: 100%;         /* fills .left-column */
-      max-width: none;    /* limits profile width visually */
-      margin: 0 auto;      /* centers the profile card in .left-column */
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      position: relative;                         /* keep this to allow absolute logo positioning */
+      padding-top: 40px;                          /* keep space for logos */
     }
+
 
 
     /* Left Column (Bio) */
@@ -277,6 +310,74 @@
       flex-direction: column;
       gap: var(--base-spacing);
     }
+
+    .title {
+      display: block;
+      text-align: left;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .title-red {
+      color: #f70000;
+    }
+
+    .title-white {
+      color: white;
+    }
+
+
+    .profile-heading {
+      position: relative;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+    }
+
+    .heading-title {
+      color: #f70000;
+      display: inline-block;
+    }
+
+    .heading-subtitle {
+      display: block;
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 4px;
+      padding: 6px 12px;
+      border: 2px solid white;
+      border-radius: 8px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: transparent;
+    }
+
+    .profile-logos {
+      position: absolute;
+      top: 40px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;  /* stacks logo and flag vertically */
+      align-items: center;
+      gap: 12px;                 /* space between logo and flag */
+    }
+
+    .profile-logos img {
+      width: auto;
+      height: 90px;
+      max-height: none;
+      border-radius: 0;
+    }
+
+    .profile-logos img:last-child {
+      height: 48px;  /* flag smaller than logo */
+    }
+
 
     /*
       On smaller screens, stack columns vertically
@@ -297,12 +398,13 @@
       "section" class for each textbox/card
     */
     .section {
-      background-color: var(--section-bg-color);
-      color: var(--section-text-color);
-      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
       padding: var(--base-spacing);
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     }
+
     .section h2 {
       margin-bottom: 0.5em;
       color: var(--highlight-color);
@@ -382,32 +484,41 @@
       <!-- ◀ LEFT COLUMN: Player Bio + Stats -->
       <div class="left-column">
         <div class="section" id="player-bio">
-          <h2>A.J. Lawson</h2>
+          <div class="profile-logos">
+            <img src="Raptors_logo.png" alt="Raptors Logo" />
+            <img src="Canadian_Flag.png" alt="Canadian Flag" />
+          </div>
+          <h2 style="font-size: 2rem;">A.J. Lawson</h2>
           <img src="A.J._Lawson_Headshot.png" alt="A.J. Lawson Headshot" class="player-image" />
           <p class="centered-text"><strong>Toronto Raptors</strong></p>
 
           <div class="inline-stats">
+            <div class="inline-stats-inner">
             <p><strong>Position(s):</strong> SG</p>
             <p><strong>Age:</strong> 24</p>
           </div>
+        </div>
 
-          <div class="inline-stats">
+        <div class="inline-stats">
+          <div class="inline-stats-inner">
             <p><strong>Height:</strong> 6'6"</p>
             <p><strong>Wingspan:</strong> 6'6"</p>
           </div>
+        </div>
 
-          <div class="inline-stats single">
+        <div class="inline-stats">
+          <div class="inline-stats-inner">
             <p><strong>Draft:</strong> 2021 (Undrafted)</p>
+            <p><strong>Contract Type:</strong> Standard<br>(Non-Guaranteed)</p>
           </div>
+        </div>
 
-          <div class="inline-stats single">
-            <p><strong>Contract Type:</strong> Standard (Non-Guaranteed)</p>
-          </div>
-
-          <div class="inline-stats">
+        <div class="inline-stats">
+          <div class="inline-stats-inner">
             <p><strong>Salary:</strong> $2,270,735</p>
             <p><strong>Exp:</strong> 2026-27 (UFA)</p>
           </div>
+        </div>
 
           <p><strong>Profile:</strong> A.J. Lawson is a Canadian guard with the Toronto Raptors of the National Basketball Association (NBA). 
             He is currently on a two year non-guaranteed contract with the Raptors 905 and played three seasons with the South Carolina Gamecocks. 
@@ -417,13 +528,13 @@
 
         <div class="stats-tab-wrapper">
           <div class="stats-tabs">
-            <button class="tab-button active" data-img="NBA_stats.png">NBA</button>
+            <button class="tab-button active" data-img="aj_lawson_nba_stats.png">NBA</button>
             <button class="tab-button" data-img="aj_lawson_g_league_stats.png">G League</button>
-            <button class="tab-button" data-img="College_Stats.png">College</button>
+            <button class="tab-button" data-img="aj_lawson_college_stats.png">College</button>
           </div>
           <div class="g-league-wrapper">
             <img
-              src="NBA_stats.png"
+              src="aj_lawson_nba_stats.png"
               alt="A.J. Lawson Stats Table"
               class="g-league-expanded"
               id="statsImage"
@@ -435,29 +546,36 @@
       <!-- ▶ MIDDLE COLUMN: Notes + Video -->
       <div class="middle-column">
         <div class="section" id="notes-1">
-          <h2>Offence</h2>
+          <span class="title">
+            <span class="title-red">Player Profile:</span>  
+            <span class="title-white">High Usage Two-Level Scorer</span>
+          </span>
+
           <ul>
-            <li>Heavy three-point and paint shot diet</li>
-            <li>Right side above the arc three is his most efficient three-point zone</li>
-            <li>Lacks playmaking and midrange efficiency</li>
+            <li>Primarily takes shots from three-point range or at the rim</li>
+            <li>Draws fouls at a high rate (80th percentile in FTA/36)</li>
+            <li>Strong rebounder for his position (80th percentile in REB%)</li>
+            <li>Active on hustle plays (91st percentile in % LOOSE BALLS RECOVERED DEF) & (79th percentile in OREB%)</li>
           </ul>
         </div>
+
 
         <div class="section" id="notes-2">
-          <h2>Defense</h2>
+          <h2>Areas of Improvement</h2>
           <ul>
-            <li>Rebounds well for his position</li>
-            <li>Displays good hustle and loose ball awareness</li>
+            <li>Rarely attempts midrange shots and struggles from that area (33% in NBA, 23% in G League)</li>
+            <li>Poor free-throw shooter (7th percentile in FT%)</li>
+            <li>Limited playmaking impact (8th percentile in Assist Ratio)</li>
           </ul>
         </div>
 
-        <div class="section" id="notes-3">
-          <h2>Overview</h2>
+        <!--<div class="section" id="notes-3">
+          <h2>Summary</h2>
           <p>Lawson has shown to be most effective as a high usage scorer. 
           In the G League this year, he emerged as a reliable three-point threat who can get to the free-throw line consistently while also playing at a fast pace (84th percentile among guards). 
           The 6'6" guard rebounds the ball well for his size and performs well in the DEF WS category. These two attributes have translated over to the Raptors this season (80th percentile in REB% and 97th percentile in DEF WS) in a small sample size. 
           As a player capable of being a scoring option, improving shooting efficiency from the field and the free throw line (30th percentile in EFG%, 7th percentile in FT%) as well as playmaking (8th percentile in AST RATIO) will be important for Lawson as he faces NBA calibre defense.</p>
-        </div>
+        </div> -->
 
         <div class="section" id="video-analysis">
           <h2>Video Analysis</h2>
@@ -474,28 +592,36 @@
   <h2>Similar Players</h2>
 
   <div class="similar-player-group">
+
     <div class="similar-player">
       <h3>Ja'Kobe Walter</h3>
+      <img src="jakobe_walter_mugshot.png" alt="Ja'Kobe Walter Mugshot" class="player-mugshot" />
       <img src="Jakobe_Walter_Radar.png" alt="Ja'Kobe Walter Radar" class="similar-radar" id="similarRadarJakobe" />
     </div>
+
     <div class="similar-player">
       <h3>Keldon Johnson</h3>
+      <img src="keldon_johnson_mugshot.png" alt="Keldon Johnson Mugshot" class="player-mugshot" />
       <img src="Keldon_Johnson_Radar.png" alt="Keldon Johnson Radar" class="similar-radar" id="similarRadarKeldon" />
     </div>
+
     <div class="similar-player">
-      <h3>Brandon Boston</h3>
-      <img src="Brandon_Boston_Radar.png" alt="Brandon Boston Radar" class="similar-radar" id="similarRadarBrandon" />
+      <h3>Lonnie Walker IV</h3>
+      <img src="lonnie_walker_mugshot.png" alt="Lonnie Walker IV Mugshot" class="player-mugshot" />
+      <img src="Lonnie_Walker_Radar.png" alt="Lonnie Walker IV Radar" class="similar-radar" id="similarRadarLonnie" />
     </div>
+
   </div>
 </div>
 
+<!-- DO NOT remove this final div -->
+</div> <!-- /.main-columns -->
 
-  </div> <!-- /.main-columns -->
 
   <!-- ▶ RIGHT COLUMN: Charts (unchanged) -->
   <div class="chart-column">
     <div class="chart-container">
-      <img src="aj_lawson_radar_plot_nba.png" alt="A.J. Lawson NBA Radar Plot" id="radarMainChart" class="main-chart" />
+      <img src="aj_lawson_nba_radar_plot.png" alt="A.J. Lawson NBA Radar Plot" id="radarMainChart" class="main-chart" />
       <img src="aj_lawson_g_league_radar_plot.png" alt="A.J. Lawson G-League Radar Teaser" id="radarThumbChart" class="overlay-thumbnail" />
     </div>
     <p class="chart-note">{Double-click on image for G League/NBA}</p>
@@ -512,7 +638,7 @@
     </div>
     <p class="chart-note">{Double-click on image for G League/NBA}</p>
 
-    <img src="player_impact_estimate.png" alt="Player Impact Estimate" id="impactChart" class="radar-image" />
+    <!-- <img src="player_impact_estimate.png" alt="Player Impact Estimate" id="impactChart" class="radar-image" /> -->
   </div> <!-- /.chart-column -->
 
 </div> <!-- /.player-layout -->
@@ -569,7 +695,7 @@
 
     <!-- Footer -->
     <div class="footer">
-      <small>© 2025 My Player Analysis App</small>
+      <small>© 2025 My Player Profile App</small>
     </div>
   </div> <!-- .container -->
 
@@ -581,7 +707,7 @@
   let currentMainPath = densityMapPath;
   let currentThumbPath = efficiencyChartPath;
 
-  const radarMapPath = "aj_lawson_radar_plot_nba.png";
+  const radarMapPath = "aj_lawson_nba_radar_plot.png";
   const gLeagueRadarPath = "aj_lawson_g_league_radar_plot.png";
   
   let radarCurrentMain = radarMapPath;
@@ -605,7 +731,7 @@
   const statsImage = document.getElementById("statsImage");
   const similarRadarJakobe = document.getElementById("similarRadarJakobe");
   const similarRadarKeldon = document.getElementById("similarRadarKeldon");
-  const similarRadarBrandon = document.getElementById("similarRadarBrandon");
+  const similarRadarLonnie = document.getElementById("similarRadarLonnie");
 
   const modal = document.getElementById("chartModal");
   const modalImg = document.getElementById("modalImg");
@@ -677,7 +803,7 @@
   });
 
   // 8) Static single-click images (no swap): impact + stats
-  [similarRadarJakobe, similarRadarKeldon, similarRadarBrandon].forEach(img => {
+  [similarRadarJakobe, similarRadarKeldon, similarRadarLonnie].forEach(img => {
     if (img) {
       img.addEventListener("click", () => {
         modal.style.display = "block";
