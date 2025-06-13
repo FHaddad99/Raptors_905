@@ -701,7 +701,7 @@
 
   <script>
 
-     // 1) Paths & state
+// 1) Paths & state
   const densityMapPath = "aj_lawson_nba_shot_density_chart.png";
   const efficiencyChartPath = "aj_lawson_g_league_shot_density_chart.png";
   let currentMainPath = densityMapPath;
@@ -822,11 +822,11 @@
   if (statsImage) {
     statsImage.addEventListener("click", () => {
       modal.style.display = "block";
-      modalImg.src = statsImage.src; // Grab current visible tab's image
+      modalImg.src = statsImage.src;
     });
   }
 
-  // 9) Modal double-click to swap (only applies to radar / density / eff)
+  // 9) Modal double-click to swap
   modalImg.addEventListener("dblclick", () => {
     const src = modalImg.src;
     if (src.endsWith(densityMapPath) || src.endsWith(efficiencyChartPath)) {
@@ -847,10 +847,11 @@
     }
   });
 
-  // 10) Close modal on click
+  // 10) Close modal logic
   closeModalBtn.addEventListener("click", () => {
     modal.style.display = "none";
   });
+
   window.addEventListener("click", e => {
     if (e.target === modal) modal.style.display = "none";
   });
@@ -858,14 +859,27 @@
   // 11) Tab switching logic
   document.querySelectorAll(".tab-button").forEach(button => {
     button.addEventListener("click", () => {
-      document.querySelectorAll(".tab-button").forEach(btn =>
-        btn.classList.remove("active")
-      );
+      document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
       button.classList.add("active");
       const newSrc = button.getAttribute("data-img");
       statsImage.src = newSrc;
     });
   });
+
+  // 12) Dynamically adjust font size in left column if it exceeds 25vw
+  const leftColumn = document.querySelector('.left-column');
+
+  const resizeObserver = new ResizeObserver(() => {
+    const vw = window.innerWidth;
+    const maxWidth = vw * 0.25;
+    if (leftColumn.offsetWidth > maxWidth) {
+      leftColumn.style.fontSize = '0.65rem';
+    } else {
+      leftColumn.style.fontSize = '1rem';
+    }
+  });
+
+  resizeObserver.observe(leftColumn);
 
   </script>
 </body>
