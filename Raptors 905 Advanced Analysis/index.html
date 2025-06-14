@@ -877,23 +877,6 @@
     });
   });
 
-  function applyDynamicScale() {
-      const scaleWrapper = document.querySelector('.scale-wrapper');
-      const baseWidth = 2560;
-      const baseHeight = 1440;
-      const actualWidth = window.innerWidth;
-      const actualHeight = window.innerHeight;
-
-      const scaleX = actualWidth / baseWidth;
-      const scaleY = actualHeight / baseHeight;
-
-      const scale = Math.min(scaleX, scaleY);
-      scaleWrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
-    }
-
-    window.addEventListener('load', applyDynamicScale);
-    window.addEventListener('resize', applyDynamicScale);
-
   </script>
 </body>
 </html>
