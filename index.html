@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>A.J. Lawson Player Analysis</title>
+  <style>
+    /* 
+      ==========================
+         CSS Variables (Theme)
+      ==========================
+    */
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(145deg, #720026, #000000);
+      color: var(--text-color);
+      padding-top: 40px;
+      margin: 0;
+      transform-origin: top left; /* Important for scale anchor */
+    }
+
+
+    :root {
+      --page-bg-color: #970202;
+      --text-color: #ffffff;
+      --section-bg-color: linear-gradient(to right, #990000, #1f1f1f); /* Raptors-inspired red to black */
+      --section-text-color: #ffffff;
+      --highlight-color: #f70000;
+      --border-radius: 8px;
+      --max-content-width: 1320px;
+      --base-spacing: 20px;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(145deg, #720026, #000000);
+      color: var(--text-color);
+      padding-top: 40px;
+      margin: 0;
+    }
+    .container {
+      width: 100%;
+      padding-left: 20px;
+      padding-right: 20px;
+      box-sizing: border-box;
+    }
+    .page-title {
+      text-align: center;
+      margin-bottom: calc(var(--base-spacing) * 1.5);
+      font-size: 2rem;
+      color: var(--highlight-color);
+    }
+    .centered-text {
+      text-align: center;
+    }
+    #player-bio h2 {
+      text-align: center;
+    }
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      gap: var(--base-spacing);
+      flex: 0 0 25vw;
+      max-width: none;
+    }
+    .middle-column {
+      display: flex;
+      flex-direction: column;
+      gap: var(--base-spacing);
+      flex: 1 1 auto;
+      min-width: 0;
+      padding-right: 0 10px;
+    }
+    .chart-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      flex: 0 0 25vw;
+      max-width: none;
+      margin-left: auto;
+      position: relative;
+    }
+    .chart-note {
+      font-size: 0.85rem;
+      color: #ccc;
+      text-align: center;
+      margin-top: -10px;
+      font-style: italic;
+    }
+    .g-league-wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    .g-league-expanded {
+      width: 100%;
+      max-width: 750px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .stats-tab-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+    .stats-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .tab-button {
+      background-color: #e2e8f0;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #1f2937;
+      transition: background 0.3s;
+    }
+    .tab-button:hover {
+      background-color: #cbd5e1;
+    }
+    .tab-button.active {
+      background-color: #f63b3b;
+      color: white;
+    }
+    .bio-chart {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-top: var(--base-spacing);
+      border-radius: var(--border-radius);
+      cursor: pointer;
+    }
+    .radar-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      cursor: pointer;
+      max-width: 100%;
+    }
+    .inline-stats {
+      margin-bottom: 8px; /* Adjust this value for desired spacing */
+    }
+
+    .inline-stats-inner {
+      display: flex;
+      justify-content: space-between;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 55px; /* Controls total margin inside the block */
+    }
+
+    .inline-stats-inner p {
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .inline-stats-inner p:first-child {
+      text-align: left;
+      padding-right: 110px; /* Pulls text closer to center */
+      flex: 1;
+    }
+
+    .inline-stats-inner p:last-child {
+      text-align: left;
+      padding-left: 45px; /* Pulls text away from center */
+      flex: 1;
+    }
+
+    /* ✅ Aligns single-line blocks with the left-hand items */
+    .inline-left {
+      padding-left: calc(60px); /* adjusts for section padding + half gap */
+      margin: 0 auto;
+      max-width: 600px;
+    }
+
+    .chart-container {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .similar-player-group {
+      display: flex;
+      justify-content: space-between; /* ensures even spacing */
+      gap: 20px;
+      flex-wrap: nowrap;
+    }
+
+
+    .similar-player {
+      flex: 1 1 0;
+      max-width: 33%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+
+    .player-mugshot {
+      height: 120px;
+      margin-bottom: 15px;
+    }
+
+    .similar-player h3 {
+      margin-bottom: 5px;
+      color: var(--section-text-color);
+    }
+
+    #similar-players h3 {
+      font-size: 1.3rem;           /* Smaller font size */
+      color: var(--section-text-color);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .similar-radar {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .main-chart {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      cursor: pointer;
+      max-width: 100%;
+    }
+    .overlay-thumbnail {
+      display: none;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+    }
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 80%;
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+    }
+    .close-btn {
+      float: right;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #888;
+      margin-bottom: 10px;
+    }
+    .close-btn:hover {
+      color: #333;
+    }
+    .modal-img {
+      display: block;
+      max-width: 80vw;
+      max-height: 80vh;
+      width: auto;
+      height: auto;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+
+    /*
+      ======================
+        Two-Column Layout
+      ======================
+    */
+    .player-layout {
+      display: flex;
+      justify-content: space-between;  /* distributes left, middle, right evenly */
+      align-items: flex-start;
+      gap: var(--base-spacing);        /* maintains consistent spacing between columns */
+    }
+
+    #player-bio {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      position: relative;                         /* keep this to allow absolute logo positioning */
+      padding-top: 40px;                          /* keep space for logos */
+    }
+
+
+
+    /* Left Column (Bio) */
+    /*#player-bio {
+      flex: 0 0 300px; /* fixed column width (adjust as desired) */
+      /*margin-left: -150px;
+    }
+
+    /* Right Column (Stats, Charts, Additional Info) */
+    .right-column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--base-spacing);
+    }
+
+    .title {
+      display: block;
+      text-align: left;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .title-red {
+      color: #f70000;
+    }
+
+    .title-white {
+      color: white;
+    }
+
+
+    .profile-heading {
+      position: relative;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+    }
+
+    .heading-title {
+      color: #f70000;
+      display: inline-block;
+    }
+
+    .heading-subtitle {
+      display: block;
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 4px;
+      padding: 6px 12px;
+      border: 2px solid white;
+      border-radius: 8px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: transparent;
+    }
+
+    .profile-logos {
+      position: absolute;
+      top: 40px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;  /* stacks logo and flag vertically */
+      align-items: center;
+      gap: 12px;                 /* space between logo and flag */
+    }
+
+    .profile-logos img {
+      width: auto;
+      height: 90px;
+      max-height: none;
+      border-radius: 0;
+    }
+
+    .profile-logos img:last-child {
+      height: 48px;  /* flag smaller than logo */
+    }
+
+
+    /*
+      On smaller screens, stack columns vertically
+    */
+    @media (max-width: 800px) {
+      .player-layout {
+        flex-direction: column;
+      }
+      #player-bio {
+        flex: 1 1 auto;  /* let bio shrink/grow */
+      }
+    }
+
+    /*
+      ======================
+        Card / Section
+      ======================
+      "section" class for each textbox/card
+    */
+    .section {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: var(--base-spacing);
+    }
+
+    .section h2 {
+      margin-bottom: 0.5em;
+      color: var(--highlight-color);
+    }
+    .section p {
+      margin-bottom: 0.75em;
+      line-height: 1.4;
+    }
+
+    /* add breathing-room between bullet points */
+    .section ul li {
+      margin-bottom: 0.75em;
+    }
+
+
+    /* Stats boxes styling */
+    .stats-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .stats-box {
+      flex: 1;
+      min-width: 120px;
+      background: #e2e8f0;
+      color: #111827;
+      border-radius: 4px;
+      padding: 10px;
+      text-align: center;
+    }
+    .stats-box h3 {
+      margin-bottom: 0.5em;
+      font-size: 1rem;
+      color: #374151;
+    }
+
+    /* Footer styling (optional) */
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #9ca3af;
+    }
+
+    /* 
+      =====================
+        Player Image
+      =====================
+    */
+    .player-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 1em; /* space above the image */
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+      <!-- Player Title
+      <h1 class="page-title">A.J. Lawson Player Analysis</h1>
+      -->
+
+      <!-- 
+        =======================================
+          Main Two-Column Layout
+        =======================================
+      -->
+
+  <div class="player-layout">
+
+    <!-- ✅ Grouped Left + Middle Columns and Added Similar Players Section -->
+    <div class="main-columns" style="display: flex; flex-direction: column; gap: var(--base-spacing); flex: 1 1 auto;">
+
+      <!-- Horizontal layout for Left + Middle columns -->
+      <div style="display: flex; flex-direction: row; gap: var(--base-spacing);">
+        
+        <!-- ◀ LEFT COLUMN: Player Bio + Stats -->
+        <div class="left-column">
+          <div class="section" id="player-bio">
+            <div class="profile-logos">
+              <img src="Raptors_logo.png" alt="Raptors Logo" />
+              <img src="Canadian_Flag.png" alt="Canadian Flag" />
+            </div>
+            <h2 style="font-size: 2rem;">A.J. Lawson</h2>
+            <img src="A.J._Lawson_Headshot.png" alt="A.J. Lawson Headshot" class="player-image" />
+            <p class="centered-text"><strong>Toronto Raptors</strong></p>
+
+            <div class="inline-stats">
+              <div class="inline-stats-inner">
+              <p><strong>Position(s):</strong> SG</p>
+              <p><strong>Age:</strong> 24</p>
+            </div>
+          </div>
+
+          <div class="inline-stats">
+            <div class="inline-stats-inner">
+              <p><strong>Height:</strong> 6'6"</p>
+              <p><strong>Wingspan:</strong> 6'6"</p>
+            </div>
+          </div>
+
+          <div class="inline-stats">
+            <div class="inline-stats-inner">
+              <p><strong>Draft:</strong> 2021 (Undrafted)</p>
+              <p><strong>Contract Type:</strong> Standard<br>(Non-Guaranteed)</p>
+            </div>
+          </div>
+
+          <div class="inline-stats">
+            <div class="inline-stats-inner">
+              <p><strong>Salary:</strong> $2,270,735</p>
+              <p><strong>Exp:</strong> 2026-27 (UFA)</p>
+            </div>
+          </div>
+
+            <p><strong>Profile:</strong> A.J. Lawson is a Canadian guard with the Toronto Raptors of the National Basketball Association (NBA). 
+              He is currently on a two year non-guaranteed contract with the Raptors 905 and played three seasons with the South Carolina Gamecocks. 
+              He is a score first shooting guard who averaged 14.2 PPG on 34.9% 3P% in college.
+            </p>
+          </div>
+
+          <div class="stats-tab-wrapper">
+            <div class="stats-tabs">
+              <button class="tab-button active" data-img="aj_lawson_nba_stats.png">NBA</button>
+              <button class="tab-button" data-img="aj_lawson_g_league_stats.png">G League</button>
+              <button class="tab-button" data-img="aj_lawson_college_stats.png">College</button>
+            </div>
+            <div class="g-league-wrapper">
+              <img
+                src="aj_lawson_nba_stats.png"
+                alt="A.J. Lawson Stats Table"
+                class="g-league-expanded"
+                id="statsImage"
+              />
+            </div>
+          </div>
+        </div> <!-- /.left-column -->
+
+        <!-- ▶ MIDDLE COLUMN: Notes + Video -->
+        <div class="middle-column">
+          <div class="section" id="notes-1">
+            <span class="title">
+              <span class="title-red">Player Profile:</span>  
+              <span class="title-white">High Usage Two-Level Scorer</span>
+            </span>
+
+            <ul>
+              <li>Primarily takes shots from three-point range or at the rim</li>
+              <li>Draws fouls at a high rate (80th percentile in FTA/36)</li>
+              <li>Strong rebounder for his position (80th percentile in REB%)</li>
+              <li>Active on hustle plays (91st percentile in % LOOSE BALLS RECOVERED DEF) & (79th percentile in OREB%)</li>
+            </ul>
+          </div>
+
+
+          <div class="section" id="notes-2">
+            <h2>Areas of Improvement</h2>
+            <ul>
+              <li>Rarely attempts midrange shots and struggles from that area (33% in NBA, 23% in G League)</li>
+              <li>Poor free-throw shooter (7th percentile in FT%)</li>
+              <li>Limited playmaking impact (8th percentile in Assist Ratio)</li>
+            </ul>
+          </div>
+
+          <!--<div class="section" id="notes-3">
+            <h2>Summary</h2>
+            <p>Lawson has shown to be most effective as a high usage scorer. 
+            In the G League this year, he emerged as a reliable three-point threat who can get to the free-throw line consistently while also playing at a fast pace (84th percentile among guards). 
+            The 6'6" guard rebounds the ball well for his size and performs well in the DEF WS category. These two attributes have translated over to the Raptors this season (80th percentile in REB% and 97th percentile in DEF WS) in a small sample size. 
+            As a player capable of being a scoring option, improving shooting efficiency from the field and the free throw line (30th percentile in EFG%, 7th percentile in FT%) as well as playmaking (8th percentile in AST RATIO) will be important for Lawson as he faces NBA calibre defense.</p>
+          </div> -->
+
+          <div class="section" id="video-analysis">
+            <h2>Video Analysis</h2>
+            <video controls width="100%" style="border-radius: 8px;">
+              <source src="A.J._Lawson_finalized_montage.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div> <!-- /.middle-column -->
+      </div> <!-- End horizontal row for left + middle -->
+
+      <!-- ✅ Similar Players Section Spanning Both Columns -->
+  <div class="section" id="similar-players">
+    <h2>Similar Players</h2>
+
+    <div class="similar-player-group">
+
+      <div class="similar-player">
+        <h3>Ja'Kobe Walter</h3>
+        <img src="jakobe_walter_mugshot.png" alt="Ja'Kobe Walter Mugshot" class="player-mugshot" />
+        <img src="Jakobe_Walter_Radar.png" alt="Ja'Kobe Walter Radar" class="similar-radar" id="similarRadarJakobe" />
+      </div>
+
+      <div class="similar-player">
+        <h3>Keldon Johnson</h3>
+        <img src="keldon_johnson_mugshot.png" alt="Keldon Johnson Mugshot" class="player-mugshot" />
+        <img src="Keldon_Johnson_Radar.png" alt="Keldon Johnson Radar" class="similar-radar" id="similarRadarKeldon" />
+      </div>
+
+      <div class="similar-player">
+        <h3>Lonnie Walker IV</h3>
+        <img src="lonnie_walker_mugshot.png" alt="Lonnie Walker IV Mugshot" class="player-mugshot" />
+        <img src="Lonnie_Walker_Radar.png" alt="Lonnie Walker IV Radar" class="similar-radar" id="similarRadarLonnie" />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DO NOT remove this final div -->
+  </div> <!-- /.main-columns -->
+
+
+    <!-- ▶ RIGHT COLUMN: Charts (unchanged) -->
+    <div class="chart-column">
+      <div class="chart-container">
+        <img src="aj_lawson_nba_radar_plot.png" alt="A.J. Lawson NBA Radar Plot" id="radarMainChart" class="main-chart" />
+        <img src="aj_lawson_g_league_radar_plot.png" alt="A.J. Lawson G-League Radar Teaser" id="radarThumbChart" class="overlay-thumbnail" />
+      </div>
+      <p class="chart-note">{Double-click on image for G League/NBA}</p>
+
+      <div class="chart-container">
+        <img src="aj_lawson_nba_shot_density_chart.png" alt="Shot Density Map" id="mainChart" class="main-chart" />
+        <img src="aj_lawson_g_league_shot_density_chart.png" alt="Density Map Teaser" id="thumbChart" class="overlay-thumbnail" />
+      </div>
+      <p class="chart-note">{Double-click on image for G League/NBA}</p>
+
+      <div class="chart-container">
+        <img src="aj_lawson_nba_efficiency_chart.png" alt="Efficiency Chart" id="efficiencyMainChart" class="main-chart" />
+        <img src="aj_lawson_g_league_efficiency_chart.png" alt="Efficiency Teaser" id="efficiencyThumbChart" class="overlay-thumbnail" />
+      </div>
+      <p class="chart-note">{Double-click on image for G League/NBA}</p>
+
+      <!-- <img src="player_impact_estimate.png" alt="Player Impact Estimate" id="impactChart" class="radar-image" /> -->
+    </div> <!-- /.chart-column -->
+
+  </div> <!-- /.player-layout -->
+
+  <!-- Modal (unchanged) -->
+  <div class="modal" id="chartModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModalBtn">&times;</span>
+      <img src="" alt="Zoomed Chart" class="modal-img" id="modalImg" />
+    </div>
+  </div>
+      
+        
+        <!--<div class="image-panel">
+          <img 
+            src="aj_lawson_shot_density_map.png"
+            alt="Shot Density Map"
+            class="chart-image"
+          />
+          <img 
+            src="aj_lawson_efficiency_chart.png"
+            alt="Shot Efficiency Chart"
+            class="chart-image"
+          />
+        </div>
+      </div> -->
+        
+        <!-- Right Column: Stats, Charts, Additional Info 
+        <div class="right-column">
+          Shooting Stats Section 
+          <div class="section" id="shooting-stats">
+            <h2>Shooting Stats</h2>
+            <div class="stats-grid">
+              <div class="stats-box">
+                <h3>Shots on Goal</h3>
+                <p>25</p>
+              </div>
+              <div class="stats-box">
+                <h3>Goals</h3>
+                <p>7</p>
+              </div>
+              <div class="stats-box">
+                <h3>Accuracy</h3>
+                <p>28%</p>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- Performance Chart 
+          <div class="section" id="performance-charts">
+            <h2>Performance Chart</h2>
+            <canvas id="statsChart" width="400" height="200"></canvas>
+          </div> -->
+
+      <!-- Footer -->
+      <div class="footer">
+        <small>© 2025 My Player Profile App</small>
+      </div>
+    </div> <!-- .container -->
+
+  <script>
+
+// 1) Paths & state
+  const densityMapPath = "aj_lawson_nba_shot_density_chart.png";
+  const efficiencyChartPath = "aj_lawson_g_league_shot_density_chart.png";
+  let currentMainPath = densityMapPath;
+  let currentThumbPath = efficiencyChartPath;
+
+  const radarMapPath = "aj_lawson_nba_radar_plot.png";
+  const gLeagueRadarPath = "aj_lawson_g_league_radar_plot.png";
+  
+  let radarCurrentMain = radarMapPath;
+  let radarCurrentThumb = gLeagueRadarPath;
+
+  const nbaEffChartPath = "aj_lawson_nba_efficiency_chart.png";
+  const gLeagueEffChartPath = "aj_lawson_g_league_efficiency_chart.png";
+  let effCurrentMain = nbaEffChartPath;
+  let effCurrentThumb = gLeagueEffChartPath;
+
+  const impactPath = "player_impact_estimate.png";
+
+  // 2) Grab DOM
+  const mainChart = document.getElementById("mainChart");
+  const thumbChart = document.getElementById("thumbChart");
+  const radarMainChart = document.getElementById("radarMainChart");
+  const radarThumbChart = document.getElementById("radarThumbChart");
+  const efficiencyMainChart = document.getElementById("efficiencyMainChart");
+  const efficiencyThumbChart = document.getElementById("efficiencyThumbChart");
+  const impactChart = document.getElementById("impactChart");
+  const statsImage = document.getElementById("statsImage");
+  const similarRadarJakobe = document.getElementById("similarRadarJakobe");
+  const similarRadarKeldon = document.getElementById("similarRadarKeldon");
+  const similarRadarLonnie = document.getElementById("similarRadarLonnie");
+
+  const modal = document.getElementById("chartModal");
+  const modalImg = document.getElementById("modalImg");
+  const closeModalBtn = document.getElementById("closeModalBtn");
+
+  // 3) Initialize srcs
+  mainChart.src = currentMainPath;
+  thumbChart.src = currentThumbPath;
+  radarMainChart.src = radarCurrentMain;
+  radarThumbChart.src = radarCurrentThumb;
+  efficiencyMainChart.src = effCurrentMain;
+  efficiencyThumbChart.src = effCurrentThumb;
+
+  // 4) Shared delay
+  const clickDelay = 300;
+  let clickTimer = null;
+  let radarClickTimer = null;
+  let effClickTimer = null;
+
+  // 5) Main Chart single/double-click
+  mainChart.addEventListener("click", () => {
+    if (clickTimer) {
+      clearTimeout(clickTimer);
+      clickTimer = null;
+      [currentMainPath, currentThumbPath] = [currentThumbPath, currentMainPath];
+      mainChart.src = currentMainPath;
+      thumbChart.src = currentThumbPath;
+    } else {
+      clickTimer = setTimeout(() => {
+        modal.style.display = "block";
+        modalImg.src = currentMainPath;
+        clickTimer = null;
+      }, clickDelay);
+    }
+  });
+
+  // 6) Radar Chart single/double-click
+  radarMainChart.addEventListener("click", () => {
+    if (radarClickTimer) {
+      clearTimeout(radarClickTimer);
+      radarClickTimer = null;
+      [radarCurrentMain, radarCurrentThumb] = [radarCurrentThumb, radarCurrentMain];
+      radarMainChart.src = radarCurrentMain;
+      radarThumbChart.src = radarCurrentThumb;
+    } else {
+      radarClickTimer = setTimeout(() => {
+        modal.style.display = "block";
+        modalImg.src = radarCurrentMain;
+        radarClickTimer = null;
+      }, clickDelay);
+    }
+  });
+
+  // 7) Efficiency Chart single/double-click
+  efficiencyMainChart.addEventListener("click", () => {
+    if (effClickTimer) {
+      clearTimeout(effClickTimer);
+      effClickTimer = null;
+      [effCurrentMain, effCurrentThumb] = [effCurrentThumb, effCurrentMain];
+      efficiencyMainChart.src = effCurrentMain;
+      efficiencyThumbChart.src = effCurrentThumb;
+    } else {
+      effClickTimer = setTimeout(() => {
+        modal.style.display = "block";
+        modalImg.src = effCurrentMain;
+        effClickTimer = null;
+      }, clickDelay);
+    }
+  });
+
+  // 8) Static single-click images (no swap): impact + stats
+  [similarRadarJakobe, similarRadarKeldon, similarRadarLonnie].forEach(img => {
+    if (img) {
+      img.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = img.src;
+      });
+    }
+  });
+
+  if (impactChart) {
+    impactChart.addEventListener("click", () => {
+      modal.style.display = "block";
+      modalImg.src = impactPath;
+    });
+  }
+
+  if (statsImage) {
+    statsImage.addEventListener("click", () => {
+      modal.style.display = "block";
+      modalImg.src = statsImage.src;
+    });
+  }
+
+  // 9) Modal double-click to swap
+  modalImg.addEventListener("dblclick", () => {
+    const src = modalImg.src;
+    if (src.endsWith(densityMapPath) || src.endsWith(efficiencyChartPath)) {
+      [currentMainPath, currentThumbPath] = [currentThumbPath, currentMainPath];
+      mainChart.src = currentMainPath;
+      thumbChart.src = currentThumbPath;
+      modalImg.src = currentMainPath;
+    } else if (src.endsWith(radarMapPath) || src.endsWith(gLeagueRadarPath)) {
+      [radarCurrentMain, radarCurrentThumb] = [radarCurrentThumb, radarCurrentMain];
+      radarMainChart.src = radarCurrentMain;
+      radarThumbChart.src = radarCurrentThumb;
+      modalImg.src = radarCurrentMain;
+    } else if (src.endsWith(nbaEffChartPath) || src.endsWith(gLeagueEffChartPath)) {
+      [effCurrentMain, effCurrentThumb] = [effCurrentThumb, effCurrentMain];
+      efficiencyMainChart.src = effCurrentMain;
+      efficiencyThumbChart.src = effCurrentThumb;
+      modalImg.src = effCurrentMain;
+    }
+  });
+
+  // 10) Close modal logic
+  closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", e => {
+    if (e.target === modal) modal.style.display = "none";
+  });
+
+  // 11) Tab switching logic
+  document.querySelectorAll(".tab-button").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+      const newSrc = button.getAttribute("data-img");
+      statsImage.src = newSrc;
+    });
+  });
+
+  </script>
+</body>
+</html>
