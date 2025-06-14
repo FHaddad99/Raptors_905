@@ -9,6 +9,17 @@
          CSS Variables (Theme)
       ==========================
     */
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(145deg, #720026, #000000);
+      color: var(--text-color);
+      padding-top: 40px;
+      margin: 0;
+      transform-origin: top left; /* Important for scale anchor */
+    }
+
+
     :root {
       --page-bg-color: #970202;
       --text-color: #ffffff;
@@ -462,242 +473,242 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Player Title
-    <h1 class="page-title">A.J. Lawson Player Analysis</h1>
-    -->
+    <div class="container">
+      <!-- Player Title
+      <h1 class="page-title">A.J. Lawson Player Analysis</h1>
+      -->
 
-    <!-- 
-      =======================================
-        Main Two-Column Layout
-      =======================================
-    -->
+      <!-- 
+        =======================================
+          Main Two-Column Layout
+        =======================================
+      -->
 
-<div class="player-layout">
+  <div class="player-layout">
 
-  <!-- ✅ Grouped Left + Middle Columns and Added Similar Players Section -->
-  <div class="main-columns" style="display: flex; flex-direction: column; gap: var(--base-spacing); flex: 1 1 auto;">
+    <!-- ✅ Grouped Left + Middle Columns and Added Similar Players Section -->
+    <div class="main-columns" style="display: flex; flex-direction: column; gap: var(--base-spacing); flex: 1 1 auto;">
 
-    <!-- Horizontal layout for Left + Middle columns -->
-    <div style="display: flex; flex-direction: row; gap: var(--base-spacing);">
-      
-      <!-- ◀ LEFT COLUMN: Player Bio + Stats -->
-      <div class="left-column">
-        <div class="section" id="player-bio">
-          <div class="profile-logos">
-            <img src="Raptors_logo.png" alt="Raptors Logo" />
-            <img src="Canadian_Flag.png" alt="Canadian Flag" />
+      <!-- Horizontal layout for Left + Middle columns -->
+      <div style="display: flex; flex-direction: row; gap: var(--base-spacing);">
+        
+        <!-- ◀ LEFT COLUMN: Player Bio + Stats -->
+        <div class="left-column">
+          <div class="section" id="player-bio">
+            <div class="profile-logos">
+              <img src="Raptors_logo.png" alt="Raptors Logo" />
+              <img src="Canadian_Flag.png" alt="Canadian Flag" />
+            </div>
+            <h2 style="font-size: 2rem;">A.J. Lawson</h2>
+            <img src="A.J._Lawson_Headshot.png" alt="A.J. Lawson Headshot" class="player-image" />
+            <p class="centered-text"><strong>Toronto Raptors</strong></p>
+
+            <div class="inline-stats">
+              <div class="inline-stats-inner">
+              <p><strong>Position(s):</strong> SG</p>
+              <p><strong>Age:</strong> 24</p>
+            </div>
           </div>
-          <h2 style="font-size: 2rem;">A.J. Lawson</h2>
-          <img src="A.J._Lawson_Headshot.png" alt="A.J. Lawson Headshot" class="player-image" />
-          <p class="centered-text"><strong>Toronto Raptors</strong></p>
 
           <div class="inline-stats">
             <div class="inline-stats-inner">
-            <p><strong>Position(s):</strong> SG</p>
-            <p><strong>Age:</strong> 24</p>
+              <p><strong>Height:</strong> 6'6"</p>
+              <p><strong>Wingspan:</strong> 6'6"</p>
+            </div>
           </div>
-        </div>
 
-        <div class="inline-stats">
-          <div class="inline-stats-inner">
-            <p><strong>Height:</strong> 6'6"</p>
-            <p><strong>Wingspan:</strong> 6'6"</p>
+          <div class="inline-stats">
+            <div class="inline-stats-inner">
+              <p><strong>Draft:</strong> 2021 (Undrafted)</p>
+              <p><strong>Contract Type:</strong> Standard<br>(Non-Guaranteed)</p>
+            </div>
           </div>
-        </div>
 
-        <div class="inline-stats">
-          <div class="inline-stats-inner">
-            <p><strong>Draft:</strong> 2021 (Undrafted)</p>
-            <p><strong>Contract Type:</strong> Standard<br>(Non-Guaranteed)</p>
+          <div class="inline-stats">
+            <div class="inline-stats-inner">
+              <p><strong>Salary:</strong> $2,270,735</p>
+              <p><strong>Exp:</strong> 2026-27 (UFA)</p>
+            </div>
           </div>
-        </div>
 
-        <div class="inline-stats">
-          <div class="inline-stats-inner">
-            <p><strong>Salary:</strong> $2,270,735</p>
-            <p><strong>Exp:</strong> 2026-27 (UFA)</p>
+            <p><strong>Profile:</strong> A.J. Lawson is a Canadian guard with the Toronto Raptors of the National Basketball Association (NBA). 
+              He is currently on a two year non-guaranteed contract with the Raptors 905 and played three seasons with the South Carolina Gamecocks. 
+              He is a score first shooting guard who averaged 14.2 PPG on 34.9% 3P% in college.
+            </p>
           </div>
-        </div>
 
-          <p><strong>Profile:</strong> A.J. Lawson is a Canadian guard with the Toronto Raptors of the National Basketball Association (NBA). 
-            He is currently on a two year non-guaranteed contract with the Raptors 905 and played three seasons with the South Carolina Gamecocks. 
-            He is a score first shooting guard who averaged 14.2 PPG on 34.9% 3P% in college.
-          </p>
-        </div>
-
-        <div class="stats-tab-wrapper">
-          <div class="stats-tabs">
-            <button class="tab-button active" data-img="aj_lawson_nba_stats.png">NBA</button>
-            <button class="tab-button" data-img="aj_lawson_g_league_stats.png">G League</button>
-            <button class="tab-button" data-img="aj_lawson_college_stats.png">College</button>
+          <div class="stats-tab-wrapper">
+            <div class="stats-tabs">
+              <button class="tab-button active" data-img="aj_lawson_nba_stats.png">NBA</button>
+              <button class="tab-button" data-img="aj_lawson_g_league_stats.png">G League</button>
+              <button class="tab-button" data-img="aj_lawson_college_stats.png">College</button>
+            </div>
+            <div class="g-league-wrapper">
+              <img
+                src="aj_lawson_nba_stats.png"
+                alt="A.J. Lawson Stats Table"
+                class="g-league-expanded"
+                id="statsImage"
+              />
+            </div>
           </div>
-          <div class="g-league-wrapper">
-            <img
-              src="aj_lawson_nba_stats.png"
-              alt="A.J. Lawson Stats Table"
-              class="g-league-expanded"
-              id="statsImage"
-            />
+        </div> <!-- /.left-column -->
+
+        <!-- ▶ MIDDLE COLUMN: Notes + Video -->
+        <div class="middle-column">
+          <div class="section" id="notes-1">
+            <span class="title">
+              <span class="title-red">Player Profile:</span>  
+              <span class="title-white">High Usage Two-Level Scorer</span>
+            </span>
+
+            <ul>
+              <li>Primarily takes shots from three-point range or at the rim</li>
+              <li>Draws fouls at a high rate (80th percentile in FTA/36)</li>
+              <li>Strong rebounder for his position (80th percentile in REB%)</li>
+              <li>Active on hustle plays (91st percentile in % LOOSE BALLS RECOVERED DEF) & (79th percentile in OREB%)</li>
+            </ul>
           </div>
-        </div>
-      </div> <!-- /.left-column -->
-
-      <!-- ▶ MIDDLE COLUMN: Notes + Video -->
-      <div class="middle-column">
-        <div class="section" id="notes-1">
-          <span class="title">
-            <span class="title-red">Player Profile:</span>  
-            <span class="title-white">High Usage Two-Level Scorer</span>
-          </span>
-
-          <ul>
-            <li>Primarily takes shots from three-point range or at the rim</li>
-            <li>Draws fouls at a high rate (80th percentile in FTA/36)</li>
-            <li>Strong rebounder for his position (80th percentile in REB%)</li>
-            <li>Active on hustle plays (91st percentile in % LOOSE BALLS RECOVERED DEF) & (79th percentile in OREB%)</li>
-          </ul>
-        </div>
 
 
-        <div class="section" id="notes-2">
-          <h2>Areas of Improvement</h2>
-          <ul>
-            <li>Rarely attempts midrange shots and struggles from that area (33% in NBA, 23% in G League)</li>
-            <li>Poor free-throw shooter (7th percentile in FT%)</li>
-            <li>Limited playmaking impact (8th percentile in Assist Ratio)</li>
-          </ul>
-        </div>
+          <div class="section" id="notes-2">
+            <h2>Areas of Improvement</h2>
+            <ul>
+              <li>Rarely attempts midrange shots and struggles from that area (33% in NBA, 23% in G League)</li>
+              <li>Poor free-throw shooter (7th percentile in FT%)</li>
+              <li>Limited playmaking impact (8th percentile in Assist Ratio)</li>
+            </ul>
+          </div>
 
-        <!--<div class="section" id="notes-3">
-          <h2>Summary</h2>
-          <p>Lawson has shown to be most effective as a high usage scorer. 
-          In the G League this year, he emerged as a reliable three-point threat who can get to the free-throw line consistently while also playing at a fast pace (84th percentile among guards). 
-          The 6'6" guard rebounds the ball well for his size and performs well in the DEF WS category. These two attributes have translated over to the Raptors this season (80th percentile in REB% and 97th percentile in DEF WS) in a small sample size. 
-          As a player capable of being a scoring option, improving shooting efficiency from the field and the free throw line (30th percentile in EFG%, 7th percentile in FT%) as well as playmaking (8th percentile in AST RATIO) will be important for Lawson as he faces NBA calibre defense.</p>
-        </div> -->
+          <!--<div class="section" id="notes-3">
+            <h2>Summary</h2>
+            <p>Lawson has shown to be most effective as a high usage scorer. 
+            In the G League this year, he emerged as a reliable three-point threat who can get to the free-throw line consistently while also playing at a fast pace (84th percentile among guards). 
+            The 6'6" guard rebounds the ball well for his size and performs well in the DEF WS category. These two attributes have translated over to the Raptors this season (80th percentile in REB% and 97th percentile in DEF WS) in a small sample size. 
+            As a player capable of being a scoring option, improving shooting efficiency from the field and the free throw line (30th percentile in EFG%, 7th percentile in FT%) as well as playmaking (8th percentile in AST RATIO) will be important for Lawson as he faces NBA calibre defense.</p>
+          </div> -->
 
-        <div class="section" id="video-analysis">
-          <h2>Video Analysis</h2>
-          <video controls width="100%" style="border-radius: 8px;">
-            <source src="A.J._Lawson_finalized_montage.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      </div> <!-- /.middle-column -->
-    </div> <!-- End horizontal row for left + middle -->
+          <div class="section" id="video-analysis">
+            <h2>Video Analysis</h2>
+            <video controls width="100%" style="border-radius: 8px;">
+              <source src="A.J._Lawson_finalized_montage.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div> <!-- /.middle-column -->
+      </div> <!-- End horizontal row for left + middle -->
 
-    <!-- ✅ Similar Players Section Spanning Both Columns -->
-<div class="section" id="similar-players">
-  <h2>Similar Players</h2>
+      <!-- ✅ Similar Players Section Spanning Both Columns -->
+  <div class="section" id="similar-players">
+    <h2>Similar Players</h2>
 
-  <div class="similar-player-group">
+    <div class="similar-player-group">
 
-    <div class="similar-player">
-      <h3>Ja'Kobe Walter</h3>
-      <img src="jakobe_walter_mugshot.png" alt="Ja'Kobe Walter Mugshot" class="player-mugshot" />
-      <img src="Jakobe_Walter_Radar.png" alt="Ja'Kobe Walter Radar" class="similar-radar" id="similarRadarJakobe" />
-    </div>
-
-    <div class="similar-player">
-      <h3>Keldon Johnson</h3>
-      <img src="keldon_johnson_mugshot.png" alt="Keldon Johnson Mugshot" class="player-mugshot" />
-      <img src="Keldon_Johnson_Radar.png" alt="Keldon Johnson Radar" class="similar-radar" id="similarRadarKeldon" />
-    </div>
-
-    <div class="similar-player">
-      <h3>Lonnie Walker IV</h3>
-      <img src="lonnie_walker_mugshot.png" alt="Lonnie Walker IV Mugshot" class="player-mugshot" />
-      <img src="Lonnie_Walker_Radar.png" alt="Lonnie Walker IV Radar" class="similar-radar" id="similarRadarLonnie" />
-    </div>
-
-  </div>
-</div>
-
-<!-- DO NOT remove this final div -->
-</div> <!-- /.main-columns -->
-
-
-  <!-- ▶ RIGHT COLUMN: Charts (unchanged) -->
-  <div class="chart-column">
-    <div class="chart-container">
-      <img src="aj_lawson_nba_radar_plot.png" alt="A.J. Lawson NBA Radar Plot" id="radarMainChart" class="main-chart" />
-      <img src="aj_lawson_g_league_radar_plot.png" alt="A.J. Lawson G-League Radar Teaser" id="radarThumbChart" class="overlay-thumbnail" />
-    </div>
-    <p class="chart-note">{Double-click on image for G League/NBA}</p>
-
-    <div class="chart-container">
-      <img src="aj_lawson_nba_shot_density_chart.png" alt="Shot Density Map" id="mainChart" class="main-chart" />
-      <img src="aj_lawson_g_league_shot_density_chart.png" alt="Density Map Teaser" id="thumbChart" class="overlay-thumbnail" />
-    </div>
-    <p class="chart-note">{Double-click on image for G League/NBA}</p>
-
-    <div class="chart-container">
-      <img src="aj_lawson_nba_efficiency_chart.png" alt="Efficiency Chart" id="efficiencyMainChart" class="main-chart" />
-      <img src="aj_lawson_g_league_efficiency_chart.png" alt="Efficiency Teaser" id="efficiencyThumbChart" class="overlay-thumbnail" />
-    </div>
-    <p class="chart-note">{Double-click on image for G League/NBA}</p>
-
-    <!-- <img src="player_impact_estimate.png" alt="Player Impact Estimate" id="impactChart" class="radar-image" /> -->
-  </div> <!-- /.chart-column -->
-
-</div> <!-- /.player-layout -->
-
-<!-- Modal (unchanged) -->
-<div class="modal" id="chartModal">
-  <div class="modal-content">
-    <span class="close-btn" id="closeModalBtn">&times;</span>
-    <img src="" alt="Zoomed Chart" class="modal-img" id="modalImg" />
-  </div>
-</div>
-    
-      
-      <!--<div class="image-panel">
-        <img 
-          src="aj_lawson_shot_density_map.png"
-          alt="Shot Density Map"
-          class="chart-image"
-        />
-        <img 
-          src="aj_lawson_efficiency_chart.png"
-          alt="Shot Efficiency Chart"
-          class="chart-image"
-        />
+      <div class="similar-player">
+        <h3>Ja'Kobe Walter</h3>
+        <img src="jakobe_walter_mugshot.png" alt="Ja'Kobe Walter Mugshot" class="player-mugshot" />
+        <img src="Jakobe_Walter_Radar.png" alt="Ja'Kobe Walter Radar" class="similar-radar" id="similarRadarJakobe" />
       </div>
-    </div> -->
-      
-      <!-- Right Column: Stats, Charts, Additional Info 
-      <div class="right-column">
-         Shooting Stats Section 
-        <div class="section" id="shooting-stats">
-          <h2>Shooting Stats</h2>
-          <div class="stats-grid">
-            <div class="stats-box">
-              <h3>Shots on Goal</h3>
-              <p>25</p>
-            </div>
-            <div class="stats-box">
-              <h3>Goals</h3>
-              <p>7</p>
-            </div>
-            <div class="stats-box">
-              <h3>Accuracy</h3>
-              <p>28%</p>
-            </div>
-          </div>
-        </div> -->
 
-        <!-- Performance Chart 
-        <div class="section" id="performance-charts">
-          <h2>Performance Chart</h2>
-          <canvas id="statsChart" width="400" height="200"></canvas>
-        </div> -->
+      <div class="similar-player">
+        <h3>Keldon Johnson</h3>
+        <img src="keldon_johnson_mugshot.png" alt="Keldon Johnson Mugshot" class="player-mugshot" />
+        <img src="Keldon_Johnson_Radar.png" alt="Keldon Johnson Radar" class="similar-radar" id="similarRadarKeldon" />
+      </div>
 
-    <!-- Footer -->
-    <div class="footer">
-      <small>© 2025 My Player Profile App</small>
+      <div class="similar-player">
+        <h3>Lonnie Walker IV</h3>
+        <img src="lonnie_walker_mugshot.png" alt="Lonnie Walker IV Mugshot" class="player-mugshot" />
+        <img src="Lonnie_Walker_Radar.png" alt="Lonnie Walker IV Radar" class="similar-radar" id="similarRadarLonnie" />
+      </div>
+
     </div>
-  </div> <!-- .container -->
+  </div>
+
+  <!-- DO NOT remove this final div -->
+  </div> <!-- /.main-columns -->
+
+
+    <!-- ▶ RIGHT COLUMN: Charts (unchanged) -->
+    <div class="chart-column">
+      <div class="chart-container">
+        <img src="aj_lawson_nba_radar_plot.png" alt="A.J. Lawson NBA Radar Plot" id="radarMainChart" class="main-chart" />
+        <img src="aj_lawson_g_league_radar_plot.png" alt="A.J. Lawson G-League Radar Teaser" id="radarThumbChart" class="overlay-thumbnail" />
+      </div>
+      <p class="chart-note">{Double-click on image for G League/NBA}</p>
+
+      <div class="chart-container">
+        <img src="aj_lawson_nba_shot_density_chart.png" alt="Shot Density Map" id="mainChart" class="main-chart" />
+        <img src="aj_lawson_g_league_shot_density_chart.png" alt="Density Map Teaser" id="thumbChart" class="overlay-thumbnail" />
+      </div>
+      <p class="chart-note">{Double-click on image for G League/NBA}</p>
+
+      <div class="chart-container">
+        <img src="aj_lawson_nba_efficiency_chart.png" alt="Efficiency Chart" id="efficiencyMainChart" class="main-chart" />
+        <img src="aj_lawson_g_league_efficiency_chart.png" alt="Efficiency Teaser" id="efficiencyThumbChart" class="overlay-thumbnail" />
+      </div>
+      <p class="chart-note">{Double-click on image for G League/NBA}</p>
+
+      <!-- <img src="player_impact_estimate.png" alt="Player Impact Estimate" id="impactChart" class="radar-image" /> -->
+    </div> <!-- /.chart-column -->
+
+  </div> <!-- /.player-layout -->
+
+  <!-- Modal (unchanged) -->
+  <div class="modal" id="chartModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModalBtn">&times;</span>
+      <img src="" alt="Zoomed Chart" class="modal-img" id="modalImg" />
+    </div>
+  </div>
+      
+        
+        <!--<div class="image-panel">
+          <img 
+            src="aj_lawson_shot_density_map.png"
+            alt="Shot Density Map"
+            class="chart-image"
+          />
+          <img 
+            src="aj_lawson_efficiency_chart.png"
+            alt="Shot Efficiency Chart"
+            class="chart-image"
+          />
+        </div>
+      </div> -->
+        
+        <!-- Right Column: Stats, Charts, Additional Info 
+        <div class="right-column">
+          Shooting Stats Section 
+          <div class="section" id="shooting-stats">
+            <h2>Shooting Stats</h2>
+            <div class="stats-grid">
+              <div class="stats-box">
+                <h3>Shots on Goal</h3>
+                <p>25</p>
+              </div>
+              <div class="stats-box">
+                <h3>Goals</h3>
+                <p>7</p>
+              </div>
+              <div class="stats-box">
+                <h3>Accuracy</h3>
+                <p>28%</p>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- Performance Chart 
+          <div class="section" id="performance-charts">
+            <h2>Performance Chart</h2>
+            <canvas id="statsChart" width="400" height="200"></canvas>
+          </div> -->
+
+      <!-- Footer -->
+      <div class="footer">
+        <small>© 2025 My Player Profile App</small>
+      </div>
+    </div> <!-- .container -->
 
   <script>
 
@@ -866,20 +877,22 @@
     });
   });
 
-  // 12) Dynamically adjust font size in left column if it exceeds 25vw
-  const leftColumn = document.querySelector('.left-column');
+  function applyDynamicScale() {
+      const scaleWrapper = document.querySelector('.scale-wrapper');
+      const baseWidth = 2560;
+      const baseHeight = 1440;
+      const actualWidth = window.innerWidth;
+      const actualHeight = window.innerHeight;
 
-  const resizeObserver = new ResizeObserver(() => {
-    const vw = window.innerWidth;
-    const maxWidth = vw * 0.25;
-    if (leftColumn.offsetWidth > maxWidth) {
-      leftColumn.style.fontSize = '0.65rem';
-    } else {
-      leftColumn.style.fontSize = '1rem';
+      const scaleX = actualWidth / baseWidth;
+      const scaleY = actualHeight / baseHeight;
+
+      const scale = Math.min(scaleX, scaleY);
+      scaleWrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
     }
-  });
 
-  resizeObserver.observe(leftColumn);
+    window.addEventListener('load', applyDynamicScale);
+    window.addEventListener('resize', applyDynamicScale);
 
   </script>
 </body>
